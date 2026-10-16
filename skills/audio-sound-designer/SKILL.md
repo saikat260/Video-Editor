@@ -142,19 +142,47 @@ ffmpeg -i music_ducked.wav \
 
 ## SFX Placement System
 
-### SFX Source Rule — অলঙ্ঘনীয়
+### SFX Source & Pack Discovery Rule
 
-> **SFX শুধুমাত্র `assets/sfx/` ফোল্ডার থেকে নেওয়া হবে।** কোনো SFX ফাইল অন্য কোথাও থেকে generate বা download করা যাবে না।
+> **SFX উৎস:** `assets/sfx/` ফোল্ডার (রুট অথবা যেকোনো সাবফোল্ডার যেমন `Social SFX Pack/`, `Camera Sounds/`, `Whooshs/` ইত্যাদি)।
 
-### Approved SFX Map
+#### 🧠 Smart SFX Pack Auto-Discovery (বড় প্যাক থেকে স্বয়ংক্রিয় সিলেকশন)
+
+আপনি যদি কোনো সম্পূর্ণ সাউন্ড প্যাক (যেমন `Social SFX Pack - Collection 1`) আনজিপ করে `assets/sfx/`-এ ফেলে দেন, এআই **নিজে থেকেই সাবফোল্ডারগুলো স্ক্যান করে ভিজ্যুয়াল বিটের সাথে পারফেক্ট সাউন্ড মিলিয়ে নেবে**:
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                    SMART SFX PACK AUTO-DISCOVERY MAP                         │
+├───────────────────────┬──────────────────────────┬───────────────────────────┤
+│ ভিজ্যুয়াল ইভেন্ট       │ সাবফোল্ডার / ফাইল প্যাটার্ন │ বাছাইয়ের মাপকাঠি (Duration) │
+├───────────────────────┼──────────────────────────┼───────────────────────────┤
+│ Jump Cut / Snap       │ Camera Sounds / *Click*  │ খুব ছোট (< 0.4s) — যেমন:   │
+│                       │ / *Shutter*              │ DSLR Click, Film Click    │
+├───────────────────────┼──────────────────────────┼───────────────────────────┤
+│ Zoom In / Zoom Out    │ Whooshs / *Whoosh*       │ মাঝারি (0.2s–0.5s) — যেমন: │
+│ / Wipe Transition     │ / *Swoosh* / *Flash*     │ Fast Swoosh, Whoosh 1/2   │
+├───────────────────────┼──────────────────────────┼───────────────────────────┤
+│ Counter / Stat Card   │ Electronic / *Pop*       │ ক্লিপ ও পপ (< 0.3s) — যেমন:│
+│ / Notification Pop    │ / *Beep* / *Blip*        │ Clean Electronic Pop/Blip │
+├───────────────────────┼──────────────────────────┼───────────────────────────┤
+│ Code Terminal / Type  │ Keyboard Typing / *Type* │ রিয়েল টাইপিং শব্দসমূহ     │
+├───────────────────────┼──────────────────────────┼───────────────────────────┤
+│ Reveal / Climax Beat  │ Risers / *Riser*         │ ১.০s–২.০s — যেমন:         │
+│ ("What it gave me back")│                        │ Cinematic Riser, Metalic  │
+├───────────────────────┼──────────────────────────┼───────────────────────────┤
+│ Strong Emphasis / Slam│ Impacts / *Impact*       │ সাবটেল লো-এন্ড বাস হিট   │
+└───────────────────────┴──────────────────────────┴───────────────────────────┘
+```
+
+#### Approved SFX Baseline (যদি রুট ফোল্ডারে রাখা হয়)
 
 | ফাইল | Beat Type | ব্যবহারের সময় |
 |---|---|---|
-| `assets/sfx/whoosh.wav` | Zoom in/out | ভিডিওতে zoom effect বা camera push-in/pull-out বিটে |
-| `assets/sfx/click.wav` | Hard cut | দুটি clip-এর মধ্যে sharp cut বিটে; attention snap |
-| `assets/sfx/pop.wav` | Waveform beat | Background music-এর strong beat বা bass hit-এর সাথে sync |
-| `assets/sfx/riser.wav` | Reveal moment | "What it gave me back" বা যেকোনো dramatic reveal-এর ঠিক আগে |
-| `assets/sfx/swoosh.wav` | Graphic slide-in | Lower-third, title card, বা graphic element slide করে আসার সময় |
+| `whoosh.wav` (বা Whooshs/*) | Zoom in/out | ভিডিওতে zoom effect বা camera push-in/pull-out বিটে |
+| `click.wav` (বা Camera Sounds/*) | Hard cut | দুটি clip-এর মধ্যে sharp cut বিটে; attention snap |
+| `pop.wav` (বা Electronic/*) | Waveform beat | কার্ড বা গ্রাফিক্স এন্ট্রি বিটে |
+| `riser.wav` (বা Risers/*) | Reveal moment | "What it gave me back" বা যেকোনো dramatic reveal-এর ঠিক আগে |
+| `swoosh.wav` (বা Whooshs/*) | Graphic slide-in | Lower-third, title card, বা graphic element slide করে আসার সময় |
 
 ### Timing Precision
 
