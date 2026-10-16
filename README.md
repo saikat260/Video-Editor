@@ -288,20 +288,23 @@ my-video-project/
 এটি হলো আপনার আসল ভিডিওর জন্য মাস্টার প্রম্পট। এখানে এআই নিজে থেকে আপনার বক্তব্যের অর্থ বুঝে সম্পূর্ণ এডিটিং করবে:
 
 ```markdown
-Edit a 9:16 short-form video for Instagram, TikTok, and YouTube Shorts using HyperFrames and ffmpeg.
+Edit a 9:16 short-form video for Instagram, TikTok, and YouTube Shorts using HyperFrames and ffmpeg following the skills/ai-video-director orchestrator pipeline.
 The bar is a premium creator edit in the style of Roberto Nickson (RPN) and Kallaway: clean, cinematic, fast, and restrained. It must NOT look like a generic AI template.
 I am speaking NATURALLY about my topic — I do NOT say effect names out loud. You must act as an Intelligent Autonomous Video Director. Work through every step without stopping until the preview.
 
-FILES
+PROJECT FILES:
 - raw/ every take I recorded, in recording order
-- srt/ pre-transcribed SRT subtitles (if present, bypass transcription entirely and use this file)
-- script.txt the spoken script
+- srt/ pre-transcribed SRT subtitles (CRITICAL: if present, bypass transcription entirely and preserve Bengali Unicode word timestamps)
+- script.txt the spoken script (semantic narrative reference)
 - assets/music/ background track
-- assets/sfx/ whoosh, pop, click, riser, swoosh
-- assets/fonts/ caption font (if empty, use Montserrat ExtraBold or Noto Sans Bengali Bold)
+- assets/sfx/ whoosh, pop, click, riser, swoosh (if empty, synthesize soft sine clicks or keep silent)
+- assets/fonts/ caption font (if empty, default to Montserrat ExtraBold or Noto Sans Bengali Bold)
 - assets/images/ logos, screenshots, infographics to display when tools/topics are mentioned
 - assets/broll/ supporting B-roll video clips to cut to during explanations
 - output/ final export location
+
+SKILLS SUITE INTEGRATION:
+You have access to 16 specialized skills in `skills/`. `skills/ai-video-director` is your master orchestrator. During Step 6, you must dynamically read and invoke the specialized motion skills (`skills/chart-animation`, `skills/svg-animation`, `skills/diagram-animation`, `skills/lower-thirds`, `skills/talking-head-b-roll`, `skills/kinetic-typography`, `skills/animated-infographic`, `skills/logo-animation`, etc.) depending on the scene's semantic intent.
 
 STEP 1: BEST TAKE SELECTION
 - Check srt/ folder FIRST. If any .srt file exists, SKIP transcription and use word-level timestamps directly. If empty, run `npx hyperframes transcribe --word-level true`.
