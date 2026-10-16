@@ -173,14 +173,25 @@ Click prevention measures apply করো:
 3. **Space নেই** — `click sound.wav` নয়, `click.wav` হতে হবে
 4. **নতুন SFX যোগ করতে হলে** — নতুন নাম SKILL.md-তে SFX Map-এ যোগ করো
 
-### SFX ফাইল অনুপস্থিত হলে কী করবে
+### SFX ফাইল অনুপস্থিত হলে কী করবে — ffmpeg Auto-Synthesis
+
+যদি `assets/sfx/` ফোল্ডারে কোনো কাস্টম ফাইল না থাকে, তাহলে ম্যানুয়ালি ডাউনলোড করার কোনো দরকার নেই। নিচের কমান্ডগুলো চালিয়ে ffmpeg-এর `sine` ও `anoise` ফিল্টার দিয়ে ৫টি ক্লিন সাউন্ড এক ক্লিকে জেনারেট করে নেওয়া যায়:
+
+```bash
+# ৫টি মিনিমালিস্টিক সাউন্ড এক ক্লিকে তৈরি করুন:
+ffmpeg -f lavfi -i "sine=frequency=1600:duration=0.015,afade=t=in:st=0:d=0.002,afade=t=out:st=0.004:d=0.011,volume=0.25" -c:a pcm_s16le assets/sfx/click.wav -y
+ffmpeg -f lavfi -i "aeval='0.35*sin(2*PI*(850-9000*t)*t)':d=0.05,afade=t=out:st=0.015:d=0.035" -c:a pcm_s16le assets/sfx/pop.wav -y
+ffmpeg -f lavfi -i "anoise=d=0.3:c=white,bandpass=f=650:width_type=h:w=500,afade=t=in:st=0:d=0.12,afade=t=out:st=0.12:d=0.18,volume=0.28" -c:a pcm_s16le assets/sfx/whoosh.wav -y
+ffmpeg -f lavfi -i "anoise=d=0.22:c=pink,bandpass=f=950:width_type=h:w=600,afade=t=in:st=0:d=0.07,afade=t=out:st=0.07:d=0.15,volume=0.22" -c:a pcm_s16le assets/sfx/swoosh.wav -y
+ffmpeg -f lavfi -i "aeval='0.2*sin(2*PI*(200+350*t)*t)':d=1.0,afade=t=in:st=0:d=0.25,afade=t=out:st=0.75:d=0.25" -c:a pcm_s16le assets/sfx/riser.wav -y
+```
 
 ```
 # Log format (assets/sfx/ ফোল্ডারে sfx_log.txt-এ লেখো)
 [TIMESTAMP] [SFX_FILE] [STATUS]
-0:05.234    whoosh.wav  MISSING — beat left silent
-0:12.800    swoosh.wav  OK
-0:28.500    riser.wav   MISSING — beat left silent
+0:05.234    whoosh.wav  SYNTHESIZED (via ffmpeg anoise)
+0:12.800    click.wav   SYNTHESIZED (via ffmpeg sine)
+0:28.500    pop.wav     CUSTOM (from assets/sfx/)
 ```
 
 ---

@@ -365,6 +365,40 @@ ASSET INTEGRATION RULES:
 
 ---
 
+## 🎵 ব্যাকগ্রাউন্ড মিউজিক (BGM) ও সাউন্ড ইফেক্টস (SFX) গাইড
+
+### ১. এসএফএক্স (SFX) কি আপনাকে দিতে হবে?
+**উত্তর: না, কোনো বাধ্যবাধকতা নেই।**
+- **স্বয়ংক্রিয় সিন্থেসিস (ffmpeg Auto-Synthesis):** যদি `assets/sfx/` ফোল্ডারে আপনি কোনো ফাইল না রাখেন, তবে এআই আটকে যাবে না। এআই ffmpeg-এর `sine` এবং `anoise` অডিও ফিল্টার দিয়ে স্বয়ংক্রিয়ভাবে ৫টি অতি-মার্জিত, ক্লিক-ফ্রি ও মিনিমালিস্টিক সাউন্ড জেনারেট করে নেবে:
+  - `click.wav` (1600Hz sine micro-burst) — জাম্প কাটের জন্য
+  - `pop.wav` (850Hz → 300Hz pitch-sweep) — কার্ড ও ক্যাপশন পপ-আপের জন্য
+  - `whoosh.wav` (Bandpassed white noise sweep) — পুশ-ইন জুমের জন্য
+  - `swoosh.wav` (Airy pink noise sweep) — টেক্সট স্লাইড হওয়ার জন্য
+  - `riser.wav` (200Hz → 550Hz rising tone) — ক্লাইম্যাক্স বা রিভিলের জন্য
+
+#### এক ক্লিকে ৫টি মিনিমাল সাউন্ড তৈরি করার টার্মিনাল কমান্ড:
+```bash
+ffmpeg -f lavfi -i "sine=frequency=1600:duration=0.015,afade=t=in:st=0:d=0.002,afade=t=out:st=0.004:d=0.011,volume=0.25" -c:a pcm_s16le assets/sfx/click.wav -y
+ffmpeg -f lavfi -i "aeval='0.35*sin(2*PI*(850-9000*t)*t)':d=0.05,afade=t=out:st=0.015:d=0.035" -c:a pcm_s16le assets/sfx/pop.wav -y
+ffmpeg -f lavfi -i "anoise=d=0.3:c=white,bandpass=f=650:width_type=h:w=500,afade=t=in:st=0:d=0.12,afade=t=out:st=0.12:d=0.18,volume=0.28" -c:a pcm_s16le assets/sfx/whoosh.wav -y
+ffmpeg -f lavfi -i "anoise=d=0.22:c=pink,bandpass=f=950:width_type=h:w=600,afade=t=in:st=0:d=0.07,afade=t=out:st=0.07:d=0.15,volume=0.22" -c:a pcm_s16le assets/sfx/swoosh.wav -y
+ffmpeg -f lavfi -i "aeval='0.2*sin(2*PI*(200+350*t)*t)':d=1.0,afade=t=in:st=0:d=0.25,afade=t=out:st=0.75:d=0.25" -c:a pcm_s16le assets/sfx/riser.wav -y
+```
+
+---
+
+### ২. বিজিএম (BGM) নিয়ে কী করবেন?
+ব্যাকগ্রাউন্ড মিউজিকের জন্য আপনার সামনে **৩টি স্মার্ট বিকল্প** রয়েছে:
+
+1. **লোকাল ট্র্যাক ব্যবহার (Recommended for YouTube Shorts):**
+   - Pixabay Music বা YouTube Audio Library থেকে যেকোনো পছন্দের কপিরাইট-ফ্রি Lo-Fi বা অ্যাম্বিয়েন্ট ট্র্যাক এনে `assets/music/` ফোল্ডারে রাখুন।
+   - এআই কথা বলার সময় স্বয়ংক্রিয়ভাবে মিউজিক **-২০ dB নিচে নামিয়ে (Duck)** দেবে এবং শেষ শব্দে নিখুঁতভাবে ফেড-আউট করবে।
+2. **সোশ্যাল মিডিয়া ট্রেন্ডিং সাউন্ড হ্যাক (Top Creator Secret — Best for Instagram & TikTok 🚀):**
+   - ভিডিও রেন্ডারের সময় `assets/music/` খালি রাখুন (মিউজিক ছাড়া রেন্ডার দিন)।
+   - ইনস্টাগ্রাম বা টিকটকে আপলোড করার সময় প্ল্যাটফর্মের অডিও লাইব্রেরি থেকে সরাসরি **Trending Sound** সিলেক্ট করুন এবং ভলিউম ৩% থেকে ৫% সেট করুন। এতে অ্যালগরিদমে আপনার ভিডিও ভাইরাল হওয়ার সম্ভাবনা বহুগুণ বেড়ে যায়!
+3. **বিজিএম ছাড়া ক্রিস্প ভয়েস মোড (Crisp Studio Voice):**
+   - কোনো মিউজিক না থাকলে এআই আপনার ভয়েসের ৮০Hz হাই-পাস ফিল্টার, ডিনয়েজ ও -14 LUFS স্টুডিও মাস্টারিং করবে, ফলে মিউজিক ছাড়াও আপনার বক্তব্য স্পষ্ট ও প্রফেশনাল শোনাবে।
+
 ## 🛠️ ৮টি স্পেশালাইজড রিভিশন প্রম্পট (The 8 Revision Prompts)
 
 প্রথম প্রিভিউ দেখার পর নির্দিষ্ট পরিবর্তন করতে এই প্রম্পটগুলো ব্যবহার করুন:

@@ -179,14 +179,44 @@ ffmpeg -i assembled.mp4 -i assets/sfx/whoosh.wav \
 - `click.wav`, `pop.wav`: -12 dBFS (punchy কিন্তু overwhelming নয়)
 - `riser.wav`: -18 dBFS (undercurrent, atmospheric)
 
-### SFX না পাওয়া গেলে
+### SFX না পাওয়া গেলে — ffmpeg Auto-Synthesis Mode (স্বয়ংক্রিয় জেনারেশন)
 
-> **যদি কোনো SFX ফাইল `assets/sfx/`-তে না থাকে:**
-> - সেই beat-এ silence রাখো
-> - Placeholder বা generated SFX কখনো ব্যবহার করো না
-> - Log-এ note করো: `[SFX MISSING: whoosh.wav at 5.234s — beat left silent]`
+যদি ব্যবহারকারী `assets/sfx/` ফোল্ডারে কোনো কাস্টম অডিও ফাইল না রাখেন, তবে এআই আটকে যাবে না। এআই **ffmpeg-এর `sine` এবং `anoise` ফিল্টার দিয়ে তাৎক্ষণিকভাবে অতি-সূক্ষ্ম, মার্জিত (minimalist) এবং ক্লিক-ফ্রি সাউন্ড ইফেক্ট তৈরি করে নেবে**:
 
-এটি একটি quality-over-quantity decision: ভুল SFX কোনো SFX-এর চেয়ে সবসময় খারাপ।
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│               FFMPEG NATIVE AUDIO SYNTHESIS ENGINE                     │
+├─────────────┬──────────────────────────────────────────────────────────┤
+│ click.wav   │ 1600Hz sine micro-burst (15ms) — জাম্প কাটের জন্য        │
+│ pop.wav     │ 850Hz → 300Hz pitch-sweep sine (50ms) — কার্ড পপ-আপের জন্য│
+│ whoosh.wav  │ Bandpassed white noise sweep (300ms) — পুশ-ইন জুমের জন্য │
+│ swoosh.wav  │ Airy pink noise sweep (220ms) — টেক্সট স্লাইডের জন্য     │
+│ riser.wav   │ 200Hz → 550Hz rising sine tone (1.0s) — ক্লাইম্যাক্সের জন্য│
+└─────────────┴──────────────────────────────────────────────────────────┘
+```
+
+#### ffmpeg সিন্থেসিস কমান্ডসমূহ:
+
+```bash
+# 1. Click SFX (হালকা 15ms ক্লিক)
+ffmpeg -f lavfi -i "sine=frequency=1600:duration=0.015,afade=t=in:st=0:d=0.002,afade=t=out:st=0.004:d=0.011,volume=0.25" -c:a pcm_s16le assets/sfx/click.wav
+
+# 2. Pop SFX (সফট 50ms বাবল পপ)
+ffmpeg -f lavfi -i "aeval='0.35*sin(2*PI*(850-9000*t)*t)':d=0.05,afade=t=out:st=0.015:d=0.035" -c:a pcm_s16le assets/sfx/pop.wav
+
+# 3. Whoosh SFX (নরম এয়ারি পুশ-ইন শব্দ)
+ffmpeg -f lavfi -i "anoise=d=0.3:c=white,bandpass=f=650:width_type=h:w=500,afade=t=in:st=0:d=0.12,afade=t=out:st=0.12:d=0.18,volume=0.28" -c:a pcm_s16le assets/sfx/whoosh.wav
+
+# 4. Swoosh SFX (দ্রুত ট্রানজিশন সুইপ)
+ffmpeg -f lavfi -i "anoise=d=0.22:c=pink,bandpass=f=950:width_type=h:w=600,afade=t=in:st=0:d=0.07,afade=t=out:st=0.07:d=0.15,volume=0.22" -c:a pcm_s16le assets/sfx/swoosh.wav
+
+# 5. Riser SFX (বিল্ড-আপ বা রিভিলের জন্য)
+ffmpeg -f lavfi -i "aeval='0.2*sin(2*PI*(200+350*t)*t)':d=1.0,afade=t=in:st=0:d=0.25,afade=t=out:st=0.75:d=0.25" -c:a pcm_s16le assets/sfx/riser.wav
+```
+
+> **অটো-ফলব্যাক পলিসি:**
+> - যদি `assets/sfx/` ফোল্ডারে ফাইল থাকে ➔ সেই কাস্টম ফাইল ব্যবহার করো।
+> - যদি `assets/sfx/` ফোল্ডার খালি থাকে ➔ উপরের কমান্ডগুলো চালিয়ে ফাইলগুলো স্বয়ংক্রিয়ভাবে জেনারেট করে নাও। কোনো থার্ড-পার্টি অডিও ডাউনলোড করার দরকার নেই!
 
 ---
 
