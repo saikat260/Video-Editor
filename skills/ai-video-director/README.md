@@ -53,8 +53,19 @@ SCRIPT (word for word, as spoken):
 Each paragraph = one logical section. Include filler words if present.]
 """
 
-SYNC MAP — STEP 6 CUSTOMIZATION:
-[See the Sync Map Customization Guide below. Paste your customized sync map here, or write "Use default sync map from SKILL.md" if your script matches the default.]
+SYNC MAP — STEP 6 MODE:
+Choose one:
+- OPTION A (RECOMMENDED FOR REAL VIDEOS): Write:
+  "MODE: AUTONOMOUS SEMANTIC DIRECTOR.
+   I do NOT say effect names in my video. Analyze my spoken script and SRT semantics.
+   - Automatically place jump cuts at sentence/thought boundaries and alternate 100% and 120% framing.
+   - Smooth push-in zoom (0.4s) on major emphasis words.
+   - Automatically generate bold counter/stat cards for any numbers, percentages, or money.
+   - Automatically show product/logo cards from assets/images/ when tools/brands are mentioned.
+   - Cut to assets/broll/ clips when actions/scenarios are described.
+   - Enforce the 3-4s retention rule (never stay static > 4s)."
+- OPTION B (FOR DEMO/META REEL):
+  Paste custom sync map keywords, or write "Use Meta Demo sync map from SKILL.md".
 
 SRT FILES:
 [If srt/ folder has files, write: "SRT files present in srt/ folder. Use them. Do NOT transcribe."]

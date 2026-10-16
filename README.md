@@ -196,95 +196,125 @@ my-video-project/
 
 ---
 
-## 🎙️ রেকর্ডিংয়ের ৩টি গোল্ডেন রুলস (Recording Rules)
+## 🎙️ রেকর্ডিংয়ের ৩টি গোল্ডেন রুলস (Recording Rules for Real Videos)
 
-শুটিং করার সময় এই ৩টি নিয়ম মানলে এডিটিং হবে ১০০% নির্ভুল:
+বাস্তব ভিডিওর জন্য ক্যামেরা অন করে এই ৩টি সহজ নিয়ম মেনে রেকর্ড করুন:
 
 1. **Repeat (পুনরাবৃত্তি):** কোনো লাইনে তোতলামি বা ভুল হলে ক্যামেরা বন্ধ করবেন না। ১ সেকেন্ড থেমে একই লাইন আবার স্বাভাবিকভাবে বলুন। এআই স্বয়ংক্রিয়ভাবে শেষ ভালো টেকটি নির্বাচন করবে।
-2. **Name it (নাম উচ্চারণ):** প্রতিটি ইফেক্টের নাম স্পষ্টভাবে মুখে উচ্চারণ করুন। যেমন: *"cuts"*, *"colour grading"*, *"zoom in"*, *"captions"*, *"motion graphics"*। স্ক্রিপ্টটিই এআই-এর সিঙ্ক ম্যাপ!
-3. **Glance (স্ক্রিনে তাকানো):** ল্যাপটপ বা প্রম্পটারের দিকে তাকালে কোনো সমস্যা নেই। এআই ওই চোখের পলক ফেলার মুহূর্তগুলোকে ফুল-স্ক্রিন মোশন গ্রাফিক্স বা কার্ড দিয়ে ঢেকে দেবে।
+2. **Speak Naturally (স্বাভাবিক কথন):** কোনো ইফেক্ট, কাট বা ট্রানজিশনের নাম মুখে বলার কোনো প্রয়োজন নেই! স্বাভাবিকভাবে আপনার বক্তব্য দিন। এআই স্ক্রিপ্ট ও অডিও অ্যানালাইসিস করে নিজেই বুঝে নেবে কোথায় কোন ইফেক্ট দিতে হবে।
+3. **Glance (স্ক্রিনে তাকানো):** ল্যাপটপ বা প্রম্পটারের দিকে তাকালে কোনো সমস্যা নেই। এআই ওই মুহূর্তগুলোকে ফুল-স্ক্রিন মোশন গ্রাফিক্স বা B-roll দিয়ে ঢেকে দেবে।
 
 ---
 
-## 🚀 মাস্টার প্রম্পট (The Master Prompt)
+## 🧠 এআই কীভাবে কোনো কথা ছাড়াই নিজে থেকে কাট ও ইফেক্ট বোঝে? (Semantic Intelligence)
 
-প্রজেক্ট ফোল্ডারে টার্মিনাল ওপেন করে Claude Code (`claude`) চালু করুন এবং নিচের মাস্টার প্রম্পটটি হুবহু পেস্ট করুন:
+বাস্তব ভিডিওতে এআই নিচের ৭টি অ্যালগরিদমিক নিয়মে স্বয়ংক্রিয়ভাবে কাটিং ও মোশন গ্রাফিক্স পরিচালনা করে:
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                    AUTONOMOUS SEMANTIC INTELLIGENCE                          │
+├──────────────────────────┬───────────────────────────────────────────────────┤
+│ যা আপনি বলছেন (Semantic)  │ এআই স্বয়ংক্রিয়ভাবে যা করবে (Visual & Audio)        │
+├──────────────────────────┼───────────────────────────────────────────────────┤
+│ বাক্য শেষ / নতুন কথা শুরু    │ জাম্প কাট + ফ্রেমিং অল্টারনেশন (Wide 100% ↔ Close 120%)│
+│ গুরুত্বপূর্ণ কথা / পাঞ্চলাইন  │ ০.৪s পুশ-ইন জুম (115%) + সফট Whoosh SFX + হাইলাইট  │
+│ সংখ্যা, পার্সেন্টেজ বা ডাটা │ বোল্ড কাইনেটিক কাউন্টার কার্ড (মাথার পেছনে) + Pop SFX│
+│ টুল, অ্যাপ বা ব্র্যান্ডের নাম │ assets/images/ থেকে লোগো/স্ক্রিনশট গ্লাস-কার্ডে প্রদর্শন  │
+│ কাজের দৃশ্য / পরিস্থিতির বর্ণনা│ assets/broll/ থেকে প্রাসঙ্গিক B-roll ক্লিপে কাট       │
+│ একটানা ৩-৪ সেকেন্ড স্থির     │ দর্শক ধরে রাখতে স্বয়ংক্রিয় সূক্ষ্ম ফ্রেমিং শিফট       │
+│ ক্যামেরার বাইরে তাকানো      │ ফুল-স্ক্রিন মোশন গ্রাফিক্স বা কার্ড দিয়ে গ্ল্যান্স ঢাকা│
+└──────────────────────────┴───────────────────────────────────────────────────┘
+```
+
+---
+
+## 🚀 মাস্টার প্রম্পট ১: বাস্তব কনটেন্টের জন্য (Autonomous Semantic Director — Recommended)
+
+এটি হলো আপনার আসল ভিডিওর জন্য মাস্টার প্রম্পট। এখানে এআই নিজে থেকে আপনার বক্তব্যের অর্থ বুঝে সম্পূর্ণ এডিটিং করবে:
 
 ```markdown
-Edit a 9:16 short-form video for Instagram and TikTok using HyperFrames and ffmpeg. The video is about its own edit: every effect I name in the script must happen on screen the moment I say it. The bar is a premium creator edit in the style of Roberto Nickson (RPN) and Kallaway: clean, cinematic, fast and restrained. It must not look like an AI template. Work through every step without stopping unless a file is missing. The only stop is the preview.
+Edit a 9:16 short-form video for Instagram, TikTok, and YouTube Shorts using HyperFrames and ffmpeg.
+The bar is a premium creator edit in the style of Roberto Nickson (RPN) and Kallaway: clean, cinematic, fast, and restrained. It must NOT look like a generic AI template.
+I am speaking NATURALLY about my topic — I do NOT say effect names out loud. You must act as an Intelligent Autonomous Video Director. Work through every step without stopping until the preview.
 
 FILES
 - raw/ every take I recorded, in recording order
 - srt/ pre-transcribed SRT subtitles (if present, bypass transcription entirely and use this file)
-- script.txt the final script (sync map)
-- old/ one old reel to re-edit (optional)
+- script.txt the spoken script
 - assets/music/ background track
 - assets/sfx/ whoosh, pop, click, riser, swoosh
-- assets/fonts/ caption font (if empty, use SF Pro Display Bold or Noto Sans Bengali)
-- assets/images/ logos, product screenshots, banners to display on relevant beats
-- assets/broll/ supporting video footage to cut to instead of jump zooms where relevant
+- assets/fonts/ caption font (if empty, use Montserrat ExtraBold or Noto Sans Bengali Bold)
+- assets/images/ logos, screenshots, infographics to display when tools/topics are mentioned
+- assets/broll/ supporting B-roll video clips to cut to during explanations
 - output/ final export location
 
-STEP 1: PICK MY BEST TAKES
-- SRT PRIORITY: First check the srt/ folder. If an .srt file exists, SKIP transcription completely and parse word-level timestamps directly from it. If srt/ is empty, run `npx hyperframes transcribe` on every clip in raw/ for word-level timestamps.
-- Match every script line to all of its takes. I repeat lines until they're right, so the LAST complete take of each line is usually the best. Use it unless it has a stumble, a clipped word or clearly flatter energy, then use the next best.
-- Write takes.md: each line, the take used, its timestamps and why.
+STEP 1: BEST TAKE SELECTION
+- Check srt/ folder FIRST. If any .srt file exists, SKIP transcription and use word-level timestamps directly. If empty, run `npx hyperframes transcribe --word-level true`.
+- Match every script line to its takes. Pick the LAST complete take of each line (it usually has the best energy), unless it has stumbles or clipped words.
+- Write takes.md: each line, chosen take, timestamps, and reason.
 
-STEP 2: TIGHT CUT
-- Assemble the chosen takes in script order.
-- Remove every pause over 0.15s, breaths between sentences, ums and restarts.
-- Never cut mid-word. Leave 2 frames of handle on each side. Apply 3ms audio crossfade to prevent clicks.
+STEP 2: TIGHT CINEMATIC CUT
+- Assemble selected takes in script order.
+- Remove all silent pauses > 0.15s, breaths, ums, and restarts.
+- Never cut mid-word. Leave 2-frame handles on every cut with a 3ms audio crossfade to prevent clicks.
 
-STEP 3: GRADE
-- Clean cinematic grade: gentle S-curve contrast, natural warm skin, slightly warm highlights, slightly cool shadows, saturation down a touch, soft vignette, very light film grain.
-- Match exposure and white balance across every take so cuts don't flicker.
-- Keep an ungraded copy of the footage for the reveal beats.
+STEP 3: CINEMATIC GRADE
+- Clean S-curve contrast, warm natural skin tones, slightly cool shadows, soft vignette, very subtle film grain.
+- Match exposure and white balance across all takes so cuts don't flicker.
 
-STEP 4: ZOOMS
-- Pull a frame from each clip and find my face so every zoom centres on my eyes.
-- Two framings: wide at 100% and close at 120%. Alternate on every jump cut so the cuts feel deliberate.
-- Smooth push-ins on emphasis words: 0.4s, ease in-out. No shake, no bounce.
-- If the source is 1080p, cap zooms at 115% so it stays sharp.
+STEP 4: FACE-TRACKED DYNAMIC ZOOMS
+- Track my face so every zoom centers on my eyes.
+- Two framings: Wide at 100% and Close at 120%. Alternate framings on jump cuts (sentence/thought boundaries) so the cuts look deliberate and dynamic.
+- If source is 1080p, cap zooms at 115% for sharpness.
 
-STEP 5: CAPTIONS AND DESIGN
-- 2 to 4 words per caption, timed per word, white bold sans, about 68px at 1080 wide, subtle shadow, lower middle of the frame, never over my face.
-- Active keyword in accent orange #D97757. 80ms fade-in. No bouncing.
-- Palette: white, near black #141413 and #D97757 only. One easing style for everything (expo out). Rounded corners on every card.
-- Safe zone: nothing in the top 220px, bottom 420px or right 140px.
+STEP 5: KINETIC CAPTIONS
+- 2 to 4 words per caption, word-level timing, bold sans typography, lower middle of the frame (safe zone).
+- Active spoken word highlighted in accent orange #D97757 (80ms fade-in, no bouncing).
+- Strict Safe Zone: nothing in the top 220px, bottom 420px, or right 140px.
 
-STEP 6: SYNC MAP
-Each effect lands within 2 frames of the start of its word.
-- Start to "captions": no captions. Clean title at the top: EDITED 100% WITH CLAUDE CODE, with CLAUDE CODE in orange.
-- "cuts": a hard jump cut lands on the word, with a sharp click.
-- "colour grading": drop to the ungraded footage, then a thin vertical line sweeps across and wipes the grade back in.
-- "captions": captions switch on for the first time and the title fades out.
-- "zoom ins": smooth push-in. "zoom outs": smooth pull-out. Soft whoosh on each.
-- "motion graphics": the words MOTION GRAPHICS build from sliding orange bars, 0.8s.
-- "sound effects": a minimal waveform pulses with a whoosh and a pop.
-- "single editing app": small clean card reading "Editing apps opened: 0".
-- "raw footage" through "long pauses still in it": a timeline strip of my real raw clips with the real total length. Bad takes in red, pauses in grey, from your actual cut data.
-- "one prompt": a dark terminal card types the first line of this prompt. Then the red and grey segments collapse out and a counter runs from the real raw length to the final length.
-- "This is what I gave it": the worst real moment from the raw footage, ungraded, no captions, small RAW tag and timecode.
-- "what it gave me back": riser, then wipe to the same line in the final edit.
-- "Make the captions bigger": show the line as a typed message. On "bigger", scale the captions to 140% and keep them that size to the end.
-- "posted last year": about 2s of the original old video, untouched, in a rounded card with a grey BEFORE tag.
-- "Claude's re-edit": wipe to the same moment from the re-edit with an orange CLAUDE RE-EDIT tag.
-- "Comment CLAUDE": big clean kinetic text with a comment bubble. End on a frame that matches the first frame so the video loops.
-- Between beats, change something every 2 to 4 seconds (cut, zoom, b-roll or graphic), but never stack two effects at once.
+STEP 6: AUTONOMOUS SEMANTIC EDITING RULES
+Analyze my spoken transcript semantics and execute visual changes automatically:
+1. Sentence & Thought Shifts: Jump cut + alternate framing (100% ↔ 120%).
+2. Emphasis & Key Takeaways: When I emphasize an important point, execute a smooth 0.4s push-in zoom with a subtle whoosh SFX.
+3. Numbers & Statistics: Whenever I mention numbers, percentages, or money (e.g. "80%", "$10,000", "3 steps"), generate a bold kinetic counter card placed behind my head (subject cutout) or in safe zone with a soft pop SFX.
+4. Tool & Brand Mentions: Whenever I mention a tool, app, or concept that matches an asset in assets/images/, pop up a sleek 16px rounded card displaying the image for 1.2–2.0s.
+5. Action & Storytelling B-roll: When I describe an action, scenario, or workflow, cut from my face to relevant B-roll in assets/broll/ for 1.5–3.0s, grading the B-roll to match the main footage.
+6. The 3-4s Rule: Never allow the video to stay visually static for more than 4 seconds. Add a subtle framing cut, graphic, or b-roll cut.
+7. Glance Coverage: When eye tracking detects I glanced away from camera, cover that 1–2s window with a full-screen motion graphic or B-roll.
+8. Audio Restraint: SFX strictly on key visual beats only. Never stack two effects simultaneously.
 
-STEP 7: THE OLD VIDEO
-- Re-edit the video in old/ with the same grade, zooms, captions and sound design, and tighten any pauses. Render it to output/old_reedit.mp4 and use it in the sync map. (If old/ is empty, skip this step).
+STEP 7: AUDIO MASTERING
+- Clean voice: 80Hz high-pass filter, gentle noise suppression, smooth compression.
+- Duck background music 18–22 dB under voice; restore music cleanly on pauses and ending.
+- Master to -14 LUFS, true peak at -1 dBTP.
 
-STEP 8: SOUND
-- Voice: light denoise, high-pass at 80Hz, gentle compression. Master at -14 LUFS, peaks at -1 dBTP.
-- Music 18 to 22 dB under my voice, ducked while I talk, ending cleanly on the last word.
-- SFX only from assets/sfx, only on the beats above and some zooms. If it sounds like a meme edit, it's too much.
+STEP 8: PREVIEW & VERIFY
+- Render preview (540x960) + stills of major visual beats.
+- Verify safe zone, face clearance, and audio clicks.
+- ⛔ STOP AT PREVIEW. Show me the preview and takes.md. Wait for approval.
+- Final export after approval: output/final.mp4, 1080x1920, H.264 ~18 Mbps, AAC 320k.
+```
 
-STEP 9: CHECK, THEN RENDER
-- Render a preview plus a still of every beat in the sync map. Check them yourself: every effect on its word, no text over my face, nothing outside the safe zone, no cut mid-word, no black frames, no audio pops. Fix anything that fails.
-- Show me the preview before the final render.
-- Final: output/final.mp4, 1080x1920, source frame rate, H.264 about 18 Mbps, AAC 320k.
-- Tell me the real numbers: raw length, final length, takes removed, pauses cut.
+---
+
+## 🎬 মাস্টার প্রম্পট ২: ডেমো রিলের জন্য (Meta / Self-Referential Mode)
+
+যদি আপনি ইচ্ছাকৃতভাবে এডিটিং নিয়ে কোনো ভিডিও বানান—যেখানে আপনি নিজেই মুখে ইফেক্টের নাম বলেন (যেমন: *"the cuts, the colour grade, the zoom ins..."*)—তখন নিচের ডেমো মোড প্রম্পটটি ব্যবহার করুন:
+
+```markdown
+Edit a 9:16 short-form video for Instagram and TikTok using HyperFrames and ffmpeg.
+The video is about its own edit: every effect I name in the script must happen on screen the moment I say it.
+Sync map:
+- "cuts": hard jump cut + sharp click SFX.
+- "colour grading": drop to ungraded, then thin vertical line sweeps grade back in.
+- "captions": captions switch on, top title fades out.
+- "zoom ins": smooth push-in + whoosh. "zoom outs": smooth pull-out + whoosh.
+- "motion graphics": MOTION GRAPHICS text builds from sliding orange bars (0.8s).
+- "sound effects": minimal waveform pulses with whoosh and pop.
+- "single editing app": card "Editing apps opened: 0".
+- "one prompt": dark terminal card types first line of prompt with counter.
+- "Comment": kinetic text + comment bubble. Last frame matches frame 0 (seamless loop).
+Work through all steps and stop only at preview.
 ```
 
 ---
