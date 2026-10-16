@@ -383,14 +383,7 @@ ffmpeg -f lavfi -i "aeval='0.35*sin(2*PI*(850-9000*t)*t)':d=0.05,afade=t=out:st=
 ffmpeg -f lavfi -i "anoise=d=0.3:c=white,bandpass=f=650:width_type=h:w=500,afade=t=in:st=0:d=0.12,afade=t=out:st=0.12:d=0.18,volume=0.28" -c:a pcm_s16le assets/sfx/whoosh.wav -y
 ffmpeg -f lavfi -i "anoise=d=0.22:c=pink,bandpass=f=950:width_type=h:w=600,afade=t=in:st=0:d=0.07,afade=t=out:st=0.07:d=0.15,volume=0.22" -c:a pcm_s16le assets/sfx/swoosh.wav -y
 ffmpeg -f lavfi -i "aeval='0.2*sin(2*PI*(200+350*t)*t)':d=1.0,afade=t=in:st=0:d=0.25,afade=t=out:st=0.75:d=0.25" -c:a pcm_s16le assets/sfx/riser.wav -y
-- **বড় সাউন্ড প্যাক ড্রপ করলে (Smart Pack Auto-Discovery — Social SFX Pack Support):**
-  আপনি যদি কোনো বড় সাউন্ড প্যাক (যেমন `Social SFX Pack - Collection 1` বা যেকোনো ডাউনলোড করা প্যাক) আনজিপ করে সরাসরি `assets/sfx/` ফোল্ডারে ফেলে দেন, এআই নিজে থেকেই সাবফোল্ডারগুলো স্ক্যান করে প্রাসঙ্গিক সাউন্ডটি স্বয়ংক্রিয়ভাবে নির্বাচন করে নেবে:
-  - `Camera Sounds/` (বা *Click*, *Shutter*) ➔ জাম্প কাট এবং ছবির ট্রানজিশনে
-  - `Whooshs/` (বা *Whoosh*, *Swoosh*) ➔ জুম ইন/আউট এবং সোয়াইপ ট্রানজিশনে
-  - `Electronic/` (বা *Pop*, *Beep*, *Blip*) ➔ ডেটা কার্ড, কাউন্টার এবং ক্যাপশন পপ-আপে
-  - `Keyboard Typing/` ➔ টার্মিনাল কোড টাইপিং এবং মেসেজ স্ক্রিনে
-  - `Risers/` ➔ রিভিল, ক্লাইম্যাক্স এবং ট্রানজিশন বিটে
-  - `Impacts/` ➔ গুরুত্বপূর্ণ পয়েন্ট বা হেডলাইন স্লাইডিংয়ে
+```
 
 ---
 
