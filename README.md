@@ -1,2 +1,539 @@
-# Video-Editor
-Edits Video with AI and Hyperframes
+# 🎬 AI Video Editor: Full-Stack Automated Video Editing Suite
+
+> **Edit 100% with AI Code Agents · HyperFrames · ffmpeg**  
+> *Roberto Nickson (RPN) & Kallaway style: clean, cinematic, restrained, and fast-paced.*  
+> No video editing software opened (Premiere Pro, DaVinci Resolve, or CapCut).  
+> Every effect you name in the script happens on screen the exact moment you say it.
+
+---
+
+## 📑 সূচিপত্র (Table of Contents)
+1. [প্রজেক্ট পরিচিতি (Project Overview)](#-প্রজেক্ট-পরিচিতি-project-overview)
+2. [সিস্টেম রিকোয়ারমেন্টস ও ইনস্টলেশন গাইড (Setup & Installation)](#-সিস্টেম-রিকোয়ারমেন্টস-ও-ইনস্টলেশন-গাইড-setup--installation)
+   - [Windows ইনস্টলেশন](#1-windows-ইনস্টলেশন)
+   - [macOS ইনস্টলেশন](#2-macos-ইনস্টলেশন)
+   - [Linux / WSL ইনস্টলেশন](#3-linux--wsl-ইনস্টলেশন)
+3. [প্রজেক্ট ফোল্ডার স্ট্রাকচার (Project Structure)](#-প্রজেক্ট-ফোল্ডার-স্ট্রাকচার-project-structure)
+4. [৬টি মডুলার স্কিল আর্কিটেকচার (The 6 Modular Skills)](#-৬টি-মডুলার-স্কিল-আর্কিটেকচার-the-6-modular-skills)
+5. [রেকর্ডিংয়ের ৩টি গোল্ডেন রুলস (Recording Rules)](#-রেকর্ডিংয়ের-৩টি-গোল্ডেন-রুলস-recording-rules)
+6. [মাস্টার প্রম্পট (The Master Prompt)](#-মাস্টার-প্রম্পট-the-master-prompt)
+7. [SRT ফোল্ডার ও বাংলা ভাষা ব্যবহারের নিয়ম (Bengali & SRT Policy)](#-srt-ফোল্ডার-ও-বাংলা-ভাষা-ব্যবহারের-নিয়ম-bengali--srt-policy)
+8. [ইমেজ এবং B-roll ফুটেজ ব্যবহারের নিয়ম (Images & B-roll Integration)](#-ইমেজ-এবং-b-roll-ফুটেজ-ব্যবহারের-নিয়ম-images--b-roll-integration)
+9. [৮টি স্পেশালাইজড রিভিশন প্রম্পট (The 8 Revision Prompts)](#-৮টি-স্পেশালাইজড-রিভিশন-প্রম্পট-the-8-revision-prompts)
+   - [01: Push the Energy](#revision-01-push-the-energy)
+   - [02: Use Your Brand](#revision-02-use-your-brand)
+   - [03: Motion on Every Line](#revision-03-motion-on-every-line)
+   - [04: Better Hook & Seamless Loop](#revision-04-better-hook--seamless-loop)
+   - [05: Make a Moment Pop (Glance Cover)](#revision-05-make-a-moment-pop-glance-cover)
+   - [06: Use Real Footage (Before / After)](#revision-06-use-real-footage-before--after)
+   - [07: Tease the Prompt (Terminal Scroll)](#revision-07-tease-the-prompt-terminal-scroll)
+   - [08: Fix a Take](#revision-08-fix-a-take)
+10. [ফাইনাল কোয়ালিটি চেক প্রম্পট (Final QC Pass)](#-ফাইনাল-কোয়ালিটি-চেক-প্রম্পট-final-qc-pass)
+11. [সমস্যা ও সমাধান (Troubleshooting)](#-সমস্যা-ও-সমাধান-troubleshooting)
+
+---
+
+## 🌟 প্রজেক্ট পরিচিতি (Project Overview)
+
+এই রিপোজিটরিটি হলো একটি সম্পূর্ণ কোড-বেসড এআই ভিডিও এডিটিং অটোমেশন স্যুট। প্রথাগত কোনো ভিডিও এডিটিং অ্যাপ না খুলে শুধু কাঁচা ফুটেজ (`raw/`) ফোল্ডারে রেখে এআই কোডিং এজেন্টের (Claude Code / Antigravity / Gemini CLI) মাধ্যমে স্ক্রিপ্ট অনুযায়ী মিলিসেকেন্ড নির্ভুলতায় ভাইরাল রিল তৈরি করা যায়।
+
+### আসল এডিটের পরিসংখ্যান:
+* **কাঁচা ফুটেজ:** ৩ মিনিট ১৭.৪ সেকেন্ড (৩টি ক্লিপ)
+* **ফাইনাল রিল:** ৩৩.৬ সেকেন্ড (1080x1920, 9:16)
+* **বাদ দেওয়া টেক:** ৩৭টি (২০টি অল্টারনেট টেক + ১৭টি রিস্টার্ট)
+* **কেটে ফেলা বিরতি:** ০.১৫ সেকেন্ডের বেশি ৭৫টি নীরবতা
+* **সিঙ্ক টাইমিং:** প্রতিটি ইফেক্ট উচ্চারিত শব্দের ১–২ ফ্রেমের মধ্যে কার্যকর
+
+---
+
+## ⚙️ সিস্টেম রিকোয়ারমেন্টস ও ইনস্টলেশন গাইড (Setup & Installation)
+
+এই স্যুটটি সঠিকভাবে চালানোর জন্য নিচের ৩টি প্রধান টুলস সিস্টেমে ইনস্টল থাকতে হবে:
+1. **Node.js (v22 বা তার বেশি)** — HyperFrames ও CLI টুলস রান করার জন্য।
+2. **ffmpeg (সর্বশেষ ভার্সন)** — অডিও/ভিডিও প্রসেসিং, ফিল্টারিং ও রেন্ডারিংয়ের জন্য।
+3. **Claude Code / AI Coding CLI** — পুরো কোডিং ও পাইপলাইন অর্কেস্ট্রেট করার জন্য।
+
+---
+
+### 1. Windows ইনস্টলেশন
+
+Windows-এ PowerShell (Administrator) ওপেন করে নিচের কমান্ডগুলো চালান:
+
+#### Step A: Node.js 22+ ইনস্টল করুন
+```powershell
+# winget ব্যবহার করে Node.js LTS/Current ইনস্টল:
+winget install OpenJS.NodeJS -e
+
+# ইনস্টলেশন যাচাই করুন (Node 22+ হওয়া আবশ্যক):
+node --version
+npm --version
+```
+
+#### Step B: ffmpeg ইনস্টল করুন
+```powershell
+# winget দিয়ে ffmpeg ইনস্টল:
+winget install Gyan.FFmpeg -e
+
+# অথবা Chocolatey দিয়ে:
+# choco install ffmpeg -y
+
+# নতুন উইন্ডো খুলে যাচাই করুন:
+ffmpeg -version
+```
+> *নোট: যদি কমান্ড কাজ না করে, তবে নিশ্চিত করুন `C:\ffmpeg\bin` আপনার System PATH-এ যুক্ত আছে।*
+
+#### Step C: HyperFrames ইনস্টল করুন
+```powershell
+npm install -g hyperframes
+# যাচাই:
+npx hyperframes --version
+```
+
+#### Step D: Claude Code ইনস্টল করুন
+```powershell
+irm https://claude.ai/install.ps1 | iex
+# অথবা npm এর মাধ্যমে:
+# npm install -g @anthropic-ai/claude-code
+claude --version
+```
+
+---
+
+### 2. macOS ইনস্টলেশন
+
+macOS Terminal-এ Homebrew দিয়ে সবকিছু এক ক্লিকে ইনস্টল করা যায়:
+
+```bash
+# 1. Homebrew আপডেট করুন
+brew update
+
+# 2. Node.js এবং ffmpeg ইনস্টল করুন
+brew install node@22 ffmpeg
+
+# 3. Node PATH লিঙ্ক করুন
+brew link node@22 --force --overwrite
+
+# 4. HyperFrames ইনস্টল করুন
+npm install -g hyperframes
+
+# 5. Claude Code ইনস্টল করুন
+curl -fsSL https://claude.ai/install.sh | bash
+
+# 6. সবকিছু ঠিক আছে কিনা যাচাই করুন
+node --version
+ffmpeg -version
+npx hyperframes --version
+claude --version
+```
+
+---
+
+### 3. Linux / WSL ইনস্টলেশন
+
+Ubuntu/Debian বা WSL2-তে:
+
+```bash
+# 1. সিস্টেম আপডেট ও প্যাকেজ ইনস্টল
+sudo apt update && sudo apt install -y curl git build-essential ffmpeg
+
+# 2. Node.js 22 ইনস্টল (NodeSource Repo থেকে)
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs
+
+# 3. HyperFrames ইনস্টল
+sudo npm install -g hyperframes
+
+# 4. Claude Code ইনস্টল
+curl -fsSL https://claude.ai/install.sh | bash
+
+# 5. ভেরিফিকেশন
+node --version
+ffmpeg -version
+npx hyperframes --version
+claude --version
+```
+
+---
+
+## 📁 প্রজেক্ট ফোল্ডার স্ট্রাকচার (Project Structure)
+
+ভিডিও এডিট শুরু করার আগে আপনার প্রজেক্ট ফোল্ডারটি নিচের মতো সাজিয়ে নিন (অথবা আমাদের `video-project-scaffolder` স্কিল দিয়ে স্বয়ংক্রিয়ভাবে বানিয়ে নিন):
+
+```
+my-video-project/
+├── raw/                    # আপনার রেকর্ড করা সব কাঁচা টেক (.mp4/.mov)
+├── srt/                    # আগে থেকে থাকা SRT সাবটাইটেল (বাংলা/যেকোনো ভাষা)
+├── script.txt              # আপনার ফাইনাল স্ক্রিপ্ট (Sync Map এর ভিত্তি)
+├── old/                    # পুরনো কোনো ভিডিও (Before/After রি-এডিটের জন্য - অপশনাল)
+├── assets/
+│   ├── music/              # ব্যাকগ্রাউন্ড মিউজিক ট্র্যাক (.mp3/.wav)
+│   ├── sfx/                # সাউন্ড ইফেক্ট (whoosh, pop, click, riser, swoosh)
+│   ├── fonts/              # কাস্টম ক্যাপশন ফন্ট (.woff2/.ttf/.otf)
+│   ├── images/             # লোগো, প্রোডাক্ট ছবি, গ্রাফিক্স বা স্ক্রিনশট (.png/.jpg)
+│   └── broll/              # সাপোর্টিং B-roll ভিডিও ক্লিপ (.mp4/.mov)
+├── takes.md                # এআই নির্বাচিত সেরা টেক এবং টাইমস্ট্যাম্পের লগ
+├── config.json             # কালার প্যালেট, সেফ জোন ও এক্সপোর্ট কনফিগ
+├── recording-guide.md      # রেকর্ডিংয়ের গোল্ডেন রুলস
+└── output/                 # ফাইনাল রেন্ডার আউটপুট
+    ├── preview/            # ড্রাফট প্রিভিউ ও প্রতিটি বিটের স্টিল ফ্রেম
+    └── final.mp4           # 1080x1920 রেজোলিউশনের ফাইনাল রিল
+```
+
+---
+
+## 🧩 ৬টি মডুলার স্কিল আর্কিটেকচার (The 6 Modular Skills)
+
+এই রিপোজিটরিতে ৬টি উচ্চ ক্ষমতাসম্পন্ন স্কিল রয়েছে:
+
+| ক্রম | স্কিল ফোল্ডার | ভূমিকা ও দায়িত্ব |
+| :--- | :--- | :--- |
+| **১** | **[`video-project-scaffolder`](skills/video-project-scaffolder/)** | প্রজেক্ট শুরু করার সাথে সাথে প্রয়োজনীয় সব ফোল্ডার ও টেমপ্লেট ফাইল তৈরি করে এবং সিস্টেম চেক করে। |
+| **২** | **[`ai-video-director`](skills/ai-video-director/)** | ৯-ধাপের মাস্টার পাইপলাইন পরিচালনা করে, সেরা টেক বাছাই করে এবং স্ক্রিপ্টের সাথে ভিজ্যুয়াল সিঙ্ক করে। |
+| **৩** | **[`ffmpeg-video-cutter`](skills/ffmpeg-video-cutter/)** | অডিও ওয়েভফর্ম দেখে ০.১৫s পজ ছাঁটাই, ফেস ট্র্যাকিং জুম (100% vs 120%) এবং S-curve গ্রেডিং করে। |
+| **৪** | **[`hyperframes-graphics-engine`](skills/hyperframes-graphics-engine/)** | শব্দ ধরে হাইলাইট হওয়া ক্যাপশন, সাবজেক্ট কাটআউট (মাথার পেছনে গ্রাফিক্স) ও সেফ-জোন নিশ্চিত করে। |
+| **৫** | **[`audio-sound-designer`](skills/audio-sound-designer/)** | ভয়েস ক্লিনআপ (80Hz হাইপাস), অটো-ডাকিং (-২০ dB), -14 LUFS মাস্টারিং এবং পারফেক্ট SFX সিঙ্ক করে। |
+| **৬** | **[`video-qc-revisions`](skills/video-qc-revisions/)** | ফাইনাল রেন্ডারের পূর্বে ৮-দফা QC অডিট পাস এবং ৮টি স্পেশালাইজড রিভিশন প্রম্পট পরিচালনা করে। |
+
+---
+
+## 🎙️ রেকর্ডিংয়ের ৩টি গোল্ডেন রুলস (Recording Rules)
+
+শুটিং করার সময় এই ৩টি নিয়ম মানলে এডিটিং হবে ১০০% নির্ভুল:
+
+1. **Repeat (পুনরাবৃত্তি):** কোনো লাইনে তোতলামি বা ভুল হলে ক্যামেরা বন্ধ করবেন না। ১ সেকেন্ড থেমে একই লাইন আবার স্বাভাবিকভাবে বলুন। এআই স্বয়ংক্রিয়ভাবে শেষ ভালো টেকটি নির্বাচন করবে।
+2. **Name it (নাম উচ্চারণ):** প্রতিটি ইফেক্টের নাম স্পষ্টভাবে মুখে উচ্চারণ করুন। যেমন: *"cuts"*, *"colour grading"*, *"zoom in"*, *"captions"*, *"motion graphics"*। স্ক্রিপ্টটিই এআই-এর সিঙ্ক ম্যাপ!
+3. **Glance (স্ক্রিনে তাকানো):** ল্যাপটপ বা প্রম্পটারের দিকে তাকালে কোনো সমস্যা নেই। এআই ওই চোখের পলক ফেলার মুহূর্তগুলোকে ফুল-স্ক্রিন মোশন গ্রাফিক্স বা কার্ড দিয়ে ঢেকে দেবে।
+
+---
+
+## 🚀 মাস্টার প্রম্পট (The Master Prompt)
+
+প্রজেক্ট ফোল্ডারে টার্মিনাল ওপেন করে Claude Code (`claude`) চালু করুন এবং নিচের মাস্টার প্রম্পটটি হুবহু পেস্ট করুন:
+
+```markdown
+Edit a 9:16 short-form video for Instagram and TikTok using HyperFrames and ffmpeg. The video is about its own edit: every effect I name in the script must happen on screen the moment I say it. The bar is a premium creator edit in the style of Roberto Nickson (RPN) and Kallaway: clean, cinematic, fast and restrained. It must not look like an AI template. Work through every step without stopping unless a file is missing. The only stop is the preview.
+
+FILES
+- raw/ every take I recorded, in recording order
+- srt/ pre-transcribed SRT subtitles (if present, bypass transcription entirely and use this file)
+- script.txt the final script (sync map)
+- old/ one old reel to re-edit (optional)
+- assets/music/ background track
+- assets/sfx/ whoosh, pop, click, riser, swoosh
+- assets/fonts/ caption font (if empty, use SF Pro Display Bold or Noto Sans Bengali)
+- assets/images/ logos, product screenshots, banners to display on relevant beats
+- assets/broll/ supporting video footage to cut to instead of jump zooms where relevant
+- output/ final export location
+
+STEP 1: PICK MY BEST TAKES
+- SRT PRIORITY: First check the srt/ folder. If an .srt file exists, SKIP transcription completely and parse word-level timestamps directly from it. If srt/ is empty, run `npx hyperframes transcribe` on every clip in raw/ for word-level timestamps.
+- Match every script line to all of its takes. I repeat lines until they're right, so the LAST complete take of each line is usually the best. Use it unless it has a stumble, a clipped word or clearly flatter energy, then use the next best.
+- Write takes.md: each line, the take used, its timestamps and why.
+
+STEP 2: TIGHT CUT
+- Assemble the chosen takes in script order.
+- Remove every pause over 0.15s, breaths between sentences, ums and restarts.
+- Never cut mid-word. Leave 2 frames of handle on each side. Apply 3ms audio crossfade to prevent clicks.
+
+STEP 3: GRADE
+- Clean cinematic grade: gentle S-curve contrast, natural warm skin, slightly warm highlights, slightly cool shadows, saturation down a touch, soft vignette, very light film grain.
+- Match exposure and white balance across every take so cuts don't flicker.
+- Keep an ungraded copy of the footage for the reveal beats.
+
+STEP 4: ZOOMS
+- Pull a frame from each clip and find my face so every zoom centres on my eyes.
+- Two framings: wide at 100% and close at 120%. Alternate on every jump cut so the cuts feel deliberate.
+- Smooth push-ins on emphasis words: 0.4s, ease in-out. No shake, no bounce.
+- If the source is 1080p, cap zooms at 115% so it stays sharp.
+
+STEP 5: CAPTIONS AND DESIGN
+- 2 to 4 words per caption, timed per word, white bold sans, about 68px at 1080 wide, subtle shadow, lower middle of the frame, never over my face.
+- Active keyword in accent orange #D97757. 80ms fade-in. No bouncing.
+- Palette: white, near black #141413 and #D97757 only. One easing style for everything (expo out). Rounded corners on every card.
+- Safe zone: nothing in the top 220px, bottom 420px or right 140px.
+
+STEP 6: SYNC MAP
+Each effect lands within 2 frames of the start of its word.
+- Start to "captions": no captions. Clean title at the top: EDITED 100% WITH CLAUDE CODE, with CLAUDE CODE in orange.
+- "cuts": a hard jump cut lands on the word, with a sharp click.
+- "colour grading": drop to the ungraded footage, then a thin vertical line sweeps across and wipes the grade back in.
+- "captions": captions switch on for the first time and the title fades out.
+- "zoom ins": smooth push-in. "zoom outs": smooth pull-out. Soft whoosh on each.
+- "motion graphics": the words MOTION GRAPHICS build from sliding orange bars, 0.8s.
+- "sound effects": a minimal waveform pulses with a whoosh and a pop.
+- "single editing app": small clean card reading "Editing apps opened: 0".
+- "raw footage" through "long pauses still in it": a timeline strip of my real raw clips with the real total length. Bad takes in red, pauses in grey, from your actual cut data.
+- "one prompt": a dark terminal card types the first line of this prompt. Then the red and grey segments collapse out and a counter runs from the real raw length to the final length.
+- "This is what I gave it": the worst real moment from the raw footage, ungraded, no captions, small RAW tag and timecode.
+- "what it gave me back": riser, then wipe to the same line in the final edit.
+- "Make the captions bigger": show the line as a typed message. On "bigger", scale the captions to 140% and keep them that size to the end.
+- "posted last year": about 2s of the original old video, untouched, in a rounded card with a grey BEFORE tag.
+- "Claude's re-edit": wipe to the same moment from the re-edit with an orange CLAUDE RE-EDIT tag.
+- "Comment CLAUDE": big clean kinetic text with a comment bubble. End on a frame that matches the first frame so the video loops.
+- Between beats, change something every 2 to 4 seconds (cut, zoom, b-roll or graphic), but never stack two effects at once.
+
+STEP 7: THE OLD VIDEO
+- Re-edit the video in old/ with the same grade, zooms, captions and sound design, and tighten any pauses. Render it to output/old_reedit.mp4 and use it in the sync map. (If old/ is empty, skip this step).
+
+STEP 8: SOUND
+- Voice: light denoise, high-pass at 80Hz, gentle compression. Master at -14 LUFS, peaks at -1 dBTP.
+- Music 18 to 22 dB under my voice, ducked while I talk, ending cleanly on the last word.
+- SFX only from assets/sfx, only on the beats above and some zooms. If it sounds like a meme edit, it's too much.
+
+STEP 9: CHECK, THEN RENDER
+- Render a preview plus a still of every beat in the sync map. Check them yourself: every effect on its word, no text over my face, nothing outside the safe zone, no cut mid-word, no black frames, no audio pops. Fix anything that fails.
+- Show me the preview before the final render.
+- Final: output/final.mp4, 1080x1920, source frame rate, H.264 about 18 Mbps, AAC 320k.
+- Tell me the real numbers: raw length, final length, takes removed, pauses cut.
+```
+
+---
+
+## 🇧🇩 SRT ফোল্ডার ও বাংলা ভাষা ব্যবহারের নিয়ম (Bengali & SRT Policy)
+
+### কেন SRT ফোল্ডার ব্যবহার করবেন?
+স্বয়ংক্রিয় এআই ট্রান্সক্রিপশন টুলস (যেমন Whisper) অনেক সময় বাংলা কথ্য ভাষা, আঞ্চলিক টান বা মিশ্র ইংরেজি-বাংলা শব্দ (Banglish) নিখুঁতভাবে ধরতে পারে না।
+তাই আপনি যদি CapCut, Premiere Pro বা অন্য কোনো টুল দিয়ে তৈরি করা একটি সঠিক `.srt` ফাইল আপনার প্রজেক্টের `srt/` ফোল্ডারে রেখে দেন:
+
+1. এআই **কোনো ট্রান্সক্রিপশন রান করবে না** (সময় ও কম্পিউটিং সাশ্রয় হবে)।
+2. সরাসরি আপনার `.srt` ফাইলের শব্দ এবং মিলিসেকেন্ড টাইমস্ট্যাম্প ধরে কাট ও ক্যাপশন তৈরি হবে।
+3. যুক্তাক্ষর, হসন্ত ও দাড়ি সহ বাংলা ফন্ট নিখুঁতভাবে রেন্ডার হবে।
+
+### বাংলা ভিডিওর জন্য প্রম্পট সংযোজন:
+যদি ভিডিও বাংলায় হয়, মাস্টার প্রম্পটের সাথে এই অংশটি যুক্ত করে দিন:
+
+```markdown
+LANGUAGE & FONT OVERRIDE:
+- Language: Bengali (বাংলা).
+- SRT Priority: Parse srt/my_subtitles.srt directly. Do not call any transcribe command.
+- Caption Font: Use Noto Sans Bengali Bold or Hind Siliguri Bold from assets/fonts/.
+- Word Boundaries: Handle Bengali conjuncts (যুক্তাক্ষর) and vowel signs properly without splitting mid-syllable.
+- Size: 76px at 1080 wide, line height 1.4.
+```
+
+---
+
+## 🖼️ ইমেজ এবং B-roll ফুটেজ ব্যবহারের নিয়ম (Images & B-roll Integration)
+
+আপনার ভিডিওতে শুধু ফেস-ক্যামেরা ছাড়াও যদি কোনো প্রডাক্টের স্ক্রিনশট, লোগো বা প্রাসঙ্গিক ফুটেজ দেখাতে চান:
+
+1. **ইমেজ (`assets/images/`):**
+   * কোম্পানির লোগো, চার্ট, অ্যাপ স্ক্রিনশট বা প্রডাক্ট ছবি এখানে রাখুন।
+   * সাবজেক্ট কাটআউট টেকনোলজির মাধ্যমে বক্তার মাথার পেছনে অথবা অ্যানিমেটেড ফ্লিপ কার্ডে ইমেজ প্রদর্শিত হবে।
+2. **B-roll ফুটেজ (`assets/broll/`):**
+   * সাপোর্টিং ভিডিও ক্লিপগুলো এখানে রাখুন (যেমন: `typing-code.mp4`, `analytics-dashboard.mp4`)।
+   * স্ক্রিপ্টে ওই বিষয়টি উচ্চারিত হওয়ার সাথে সাথে জাম্প-কাটের বদলে এআই B-roll ফুটেজে কাট করবে এবং মূল ভিডিওর মতো একই সিনেমাটিক গ্রেড যুক্ত করবে।
+
+### B-roll ও ইমেজের জন্য অতিরিক্ত প্রম্পট নির্দেশনা:
+```markdown
+ASSET INTEGRATION RULES:
+- Scan assets/images/ and assets/broll/.
+- When I mention a specific tool or topic that matches an asset filename, cut to that B-roll or show the image on a rounded corner card (16px border radius).
+- Place large cards and infographics BEHIND my head using subject cutout.
+- Grade all B-roll to match the main footage's S-curve contrast and warm tones.
+```
+
+---
+
+## 🛠️ ৮টি স্পেশালাইজড রিভিশন প্রম্পট (The 8 Revision Prompts)
+
+প্রথম প্রিভিউ দেখার পর নির্দিষ্ট পরিবর্তন করতে এই প্রম্পটগুলো ব্যবহার করুন:
+
+### Revision 01: Push the Energy
+*কখন ব্যবহার করবেন: ভিডিওর শুরুটা যদি ধীরগতির বা ফ্ল্যাট মনে হয়।*
+
+```markdown
+Raise the energy of this edit without making it look like a template.
+
+OPENING (0:00 to 0:03)
+- Frame 0 must be a strong visual: a bold motion graphic or a tight punch-in on my face. No static wide shot.
+- Something changes every 1 to 1.5 seconds until 0:03: a cut, a zoom, or a graphic.
+
+THROUGHOUT
+- Find every stretch longer than 4 seconds where nothing changes and give it a cut, zoom, b-roll, or graphic.
+- Make the motion graphics bigger and bolder: fill more of the frame, stronger contrast, same easing (expo out).
+
+KEEP
+- Never stack two effects on the same beat.
+- Every effect stays within 2 frames of its word.
+- Nothing in the safe zone, no text over my face.
+- Don't change the takes, the cuts, or the audio mix.
+
+Then render a new preview and list every change with its timestamp. Rate the edit out of 10 as a senior short-form editor would, and name the three things still holding it back.
+```
+
+---
+
+### Revision 02: Use Your Brand
+*কখন ব্যবহার করবেন: Claude Orange এর বদলে নিজের ব্র্যান্ড কালার ও ফন্ট ব্যবহার করতে।*
+
+```markdown
+Rebrand this edit with my brand. Remove the Claude orange (#D97757) from every graphic, caption, and card.
+
+1. Brand Details:
+   - Primary Accent: [আপনার ব্র্যান্ড কালারের হেক্স কোড, e.g., #0066FF]
+   - Background Card Color: [e.g., #0F172A]
+   - Text Color: [#FFFFFF]
+   - Font: Use the font located in assets/fonts/ [বা Google Font নাম]
+
+2. Apply it:
+   - Captions in the heading font. Active keyword in the accent colour.
+   - Cards, terminal, and timeline in my background and text colours.
+   - The accent on one word or element at a time, never as a background.
+   - Check every caption is readable over every shot. Add a subtle shadow only where it isn't.
+
+Keep all timings, cuts, motion, and sound exactly as they are. Render the preview and stills of the title and one card.
+```
+
+---
+
+### Revision 03: Motion on Every Line
+*কখন ব্যবহার করবেন: স্ক্রিপ্টের কিছু লাইনে কোনো ভিজ্যুয়াল মুভমেন্ট না থাকলে।*
+
+```markdown
+Go through the script line by line and give every line its own visual beat.
+
+1. Make a table: line, start time, what's on screen now, what you'll add.
+2. For any line with nothing happening, add one move that shows what I'm saying:
+   - If I say a number, show the number in bold typography.
+   - If I name a tool or a thing, show the image from assets/images/ or a card.
+   - If I make a claim, show proof (a stat, graph, or B-roll from assets/broll/).
+3. Vary the type of move: cut, zoom, B-roll, graphic, kinetic text. No two zooms in a row.
+
+RULES
+- One effect at a time. Every effect within 2 frames of its word.
+- Nothing in the safe zone, no text over my face.
+- If a move doesn't add meaning, leave the line clean. Restraint beats decoration.
+
+Render the preview and show me the table.
+```
+
+---
+
+### Revision 04: Better Hook & Seamless Loop
+*কখন ব্যবহার করবেন: শুরুর হুক জোরালো করতে এবং ভিডিও শেষ হয়ে আবার প্রথম থেকে সিমলেসলি লুপ করতে।*
+
+```markdown
+Rebuild the first and last 2 seconds so the hook lands and the video loops seamlessly.
+
+OPEN
+- Frame 0: this video playing small inside a video editor mockup built in HyperFrames, with a preview window and a timeline underneath. Use the real clips and real cut points from this edit, with effect layers lighting up as they play.
+- On the words "right now" [বা আপনার হুক ওয়ার্ড]: a fast push-in (0.4s, expo out) through the preview window into the full-screen video.
+- The on-screen hook text must be readable on mute within the first second.
+
+END
+- On the last word: pull back out into the same editor mockup, landing on a frame IDENTICAL to frame 0.
+
+CHECK
+- Export frame 0 and the final frame side by side and confirm they match pixel for pixel.
+- Ensure no black frame, flash, or audio pop at the loop point.
+
+Render the preview and show me both frames.
+```
+
+---
+
+### Revision 05: Make a Moment Pop (Glance Cover)
+*কখন ব্যবহার করবেন: ক্যামেরার বাইরে তাকানো ঢাকতে বা কোনো লাইনে বড় মোশন গ্রাফিক্স তৈরি করতে।*
+
+```markdown
+At [0:09 - নির্দিষ্ট সময়], where I look away from the camera, build the biggest motion graphic in the video.
+
+- Cover the glance completely: start on the frame I look away and end on the frame I look back.
+- Make it about what I'm saying at that moment: [এখানে বলুন আপনি কী বলছেন].
+- Graphics must sit BEHIND my head using the subject cutout.
+- One SFX hit (whoosh or impact) on the graphic's main move. Keep the music ducked under my voice.
+- Timing: 0.8 to 1.5 seconds, expo-out easing, no shake, no bounce.
+- Don't change anything before or after this moment.
+
+Show me 3 stills from the moment (start, peak, end) and the preview.
+```
+
+---
+
+### Revision 06: Use Real Footage (Before / After)
+*কখন ব্যবহার করবেন: পুরনো দুর্বল ভিডিওর সাথে বর্তমান এডিটের পার্থক্য দেখাতে।*
+
+```markdown
+Use my real old content for the before/after comparison beat. I've placed the old video in old/.
+
+1. Pick 2 seconds of it on a single spoken line. Use it untouched in a rounded card with a grey "BEFORE" tag.
+2. Re-edit that same moment with this video's grade, zooms, captions, and sound. Place it in a "CLAUDE RE-EDIT" card.
+3. Both cards must show the exact same spoken sentence so the comparison is fair.
+4. Keep both cards inside the platform safe zone and time the swipe transition to the word "re-edit".
+
+Render the preview and stills of both cards.
+```
+
+---
+
+### Revision 07: Tease the Prompt (Terminal Scroll)
+*কখন ব্যবহার করবেন: প্রম্পট বা কোডটি স্ক্রিনে স্ক্রোল করিয়ে কিউরিওসিটি তৈরি করতে।*
+
+```markdown
+Rebuild the "one prompt" beat as a scrolling dark terminal.
+
+- Dark terminal card (#141413) with rounded corners.
+- Type the first line of the prompt in sharp, crisp, readable text.
+- Then scroll smoothly through the rest of the prompt. Blur everything after the first 3 lines (Gaussian blur, about 8px) so the length and structure are obvious but the exact words can't be copied.
+- Keep the STEP headings slightly less blurred so viewers can see how comprehensive it is.
+- Time the scroll to my voice and end it on my call to action.
+- Ensure the terminal card stays strictly inside the safe zone.
+
+Render the preview and export a paused full-resolution frame of the blur.
+```
+
+---
+
+### Revision 08: Fix a Take
+*কখন ব্যবহার করবেন: এআই যদি কোনো লাইনে ভুল টেক বা দুর্বল এনার্জির টেক সিলেক্ট করে।*
+
+```markdown
+For the line "[যে লাইনটিতে সমস্যা]", you used the wrong take.
+
+1. List every take of that line from the transcript / SRT with timestamps.
+2. Swap to the [e.g., 3rd take / last complete take] which has better energy and no stumbled words.
+3. Re-time everything that depends on it: captions, zooms, graphics, and SFX on that line and every line after it.
+4. Update takes.md with the reason for this manual override.
+5. Check the new cut points: 2-frame handles, no clipped words, 3ms audio crossfade.
+
+Render the preview from 5 seconds before that line to 5 seconds after.
+```
+
+---
+
+## ✅ ফাইনাল কোয়ালিটি চেক প্রম্পট (Final QC Pass)
+
+ফাইনাল MP4 রেন্ডার করার ঠিক আগে এই প্রম্পটটি দিন। এআই প্রতিটি ফ্রেম নিজে পরীক্ষা করে পাস/ফেল রিপোর্ট দেবে:
+
+```markdown
+Before the final render, perform a full 8-point quality check. Do not change the creative design. Check every frame and cut for:
+
+1. Sync: Every effect lands within 2 frames of the start of its word. List any that miss.
+2. Faces: No text, caption, card, or graphic overlaps my face at any point during its animation (shadows included).
+3. Safe Zone: Nothing rendered in the top 220px, bottom 420px, or right 140px.
+4. Cuts: No clipped words, no mid-word cuts, no audio clicks or pops at edit points.
+5. Captions: Spelling of every name, brand, and Bengali conjunct is 100% correct.
+6. Audio: Voice mastered at -14 LUFS, true peaks at -1 dBTP, music ducked 20 dB under voice.
+7. Loop: Final frame matches frame 0 pixel for pixel with no flash or pop.
+8. Artifacts: No black frames, frozen frames, or pixelation glitches.
+
+Fix anything that fails, then give me a Pass/Fail table. Only render output/final.mp4 when every single point is PASS.
+```
+
+---
+
+## ❓ সমস্যা ও সমাধান (Troubleshooting)
+
+| সমস্যা | কারণ | সমাধান |
+| :--- | :--- | :--- |
+| **`ffmpeg not found`** | সিস্টেম PATH-এ যুক্ত নেই | উইন্ডোজে PATH ভ্যারিয়েবলে `C:\ffmpeg\bin` যোগ করুন অথবা টার্মিনাল রিস্টার্ট দিন। |
+| **ক্যাপশনে বাংলা যুক্তাক্ষর ভাঙা** | ফন্ট ইউনিকোড সাপোর্ট করে না | `assets/fonts/` ফোল্ডারে `Noto Sans Bengali` বা `Kalpurush` ফন্ট রাখুন। |
+| **কাট পয়েন্টে 'খটখট' (Click) শব্দ** | অডিও জিরো-ক্রসিং মিসিং | কাটিং ফিল্টারে `acrossfade=d=0.003` (3ms crossfade) ব্যবহার করুন। |
+| **1080p ভিডিও জুমে ঝাপসা লাগে** | অতিরিক্ত ডিজিটাল জুম | 1080p ফুটেজে সর্বোচ্চ ১১৫% জুম রাখুন (`zoom_cap_1080p_pct: 115`)। |
+| **Instagram/TikTok এ টেক্সট ঢাকা পড়ে** | সেফ জোন অমান্য করা | টপ ২২০px এবং বটম ৪২০px ফাঁকা রাখার কনফিগ যাচাই করুন। |
+
+---
+
+## 📜 লাইসেন্স
+MIT License. যে কেউ বাণিজ্যিক বা ব্যক্তিগত যেকোনো ভিডিও প্রজেক্টে স্বাধীনভাবে ব্যবহার ও কাস্টমাইজ করতে পারবেন।

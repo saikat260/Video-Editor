@@ -1,0 +1,15 @@
+# Untracked workspaces & tools
+youtube-video-scraper/
+node_modules/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Output & temporary files
+output/
+preview/
+temp/
+*.tmp
+*.log
