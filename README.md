@@ -327,16 +327,14 @@ STEP 5: KINETIC CAPTIONS
 - Active spoken word highlighted in accent orange #D97757 (80ms fade-in, no bouncing).
 - Strict Safe Zone: nothing in the top 220px, bottom 420px, or right 140px.
 
-STEP 6: AUTONOMOUS SEMANTIC EDITING RULES
-Analyze my spoken transcript semantics and execute visual changes automatically:
-1. Sentence & Thought Shifts: Jump cut + alternate framing (100% ↔ 120%).
-2. Emphasis & Key Takeaways: When I emphasize an important point, execute a smooth 0.4s push-in zoom with a subtle whoosh SFX.
-3. Numbers & Statistics: Whenever I mention numbers, percentages, or money (e.g. "80%", "$10,000", "3 steps"), generate a bold kinetic counter card placed behind my head (subject cutout) or in safe zone with a soft pop SFX.
-4. Tool & Brand Mentions: Whenever I mention a tool, app, or concept that matches an asset in assets/images/, pop up a sleek 16px rounded card displaying the image for 1.2–2.0s.
-5. Action & Storytelling B-roll: When I describe an action, scenario, or workflow, cut from my face to relevant B-roll in assets/broll/ for 1.5–3.0s, grading the B-roll to match the main footage.
-6. The 3-4s Rule: Never allow the video to stay visually static for more than 4 seconds. Add a subtle framing cut, graphic, or b-roll cut.
-7. Glance Coverage: When eye tracking detects I glanced away from camera, cover that 1–2s window with a full-screen motion graphic or B-roll.
-8. Audio Restraint: SFX strictly on key visual beats only. Never stack two effects simultaneously.
+STEP 6: AUTONOMOUS SEMANTIC EDITING & SCENE-BY-SCENE REASONING ENGINE
+Analyze my spoken transcript semantics and execute the 5-Stage Cognitive Framework:
+1. Break speech into scene units at sentence boundaries and natural pauses (> 0.15s).
+2. For each scene, analyze intent and output the mandatory Scene Reasoning Log (CoT): Spoken text, intent classification, visual hypothesis, and restraint audit.
+3. Autonomously load the matching specialized skill from skills/ (such as skills/svg-animation for hand-drawn highlights/arrows, skills/chart-animation for stats/numbers, skills/diagram-animation for workflows/architectures, skills/lower-thirds for speaker credentials, skills/talking-head-b-roll for narrative cutaways, etc.).
+4. Generate isolated scene assets in build/scenes/scene_NN/ in 1080x1920 (9:16) adhering to safe zones (Top: 220px, Bottom: 420px, Right: 140px).
+5. Composite scenes sequentially on the master timeline with 2-frame handle accuracy, Roberto Nickson palette (#FFFFFF, #141413, #D97757), and synchronized audio SFX (pop, click, whoosh, riser).
+6. Enforce the 2-4s retention rhythm: never stay visually static for more than 4 seconds, and never stack two visual effects simultaneously.
 
 STEP 7: AUDIO MASTERING
 - Clean voice: 80Hz high-pass filter, gentle noise suppression, smooth compression.

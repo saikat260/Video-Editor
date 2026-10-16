@@ -55,15 +55,13 @@ Each paragraph = one logical section. Include filler words if present.]
 
 SYNC MAP — STEP 6 MODE:
 Choose one:
-- OPTION A (RECOMMENDED FOR REAL VIDEOS): Write:
-  "MODE: AUTONOMOUS SEMANTIC DIRECTOR.
-   I do NOT say effect names in my video. Analyze my spoken script and SRT semantics.
-   - Automatically place jump cuts at sentence/thought boundaries and alternate 100% and 120% framing.
-   - Smooth push-in zoom (0.4s) on major emphasis words.
-   - Automatically generate bold counter/stat cards for any numbers, percentages, or money.
-   - Automatically show product/logo cards from assets/images/ when tools/brands are mentioned.
-   - Cut to assets/broll/ clips when actions/scenarios are described.
-   - Enforce the 3-4s retention rule (never stay static > 4s)."
+- OPTION A (RECOMMENDED FOR REAL VIDEOS — FULLY AUTONOMOUS): Write:
+  "MODE: AUTONOMOUS SEMANTIC DIRECTOR & REASONING ENGINE.
+   I do NOT say effect names in my video. Autonomously analyze my spoken script and SRT semantics.
+   - Follow the 5-Stage Cognitive Reasoning Framework from SKILL.md.
+   - For every scene: analyze intent, output the mandatory Chain-of-Thought (CoT) reasoning log, autonomously load the matching skill from skills/ (such as skills/chart-animation, skills/svg-animation, skills/diagram-animation, skills/lower-thirds, skills/talking-head-b-roll, etc.).
+   - Generate scene assets in build/scenes/scene_NN/ in 1080x1920 (9:16).
+   - Enforce 2-frame handle sync, 2–4s visual rhythm, Roberto Nickson color tokens (#FFFFFF, #141413, #D97757), and safe zone rules (Top: 220px, Bottom: 420px, Right: 140px)."
 - OPTION B (FOR DEMO/META REEL):
   Paste custom sync map keywords, or write "Use Meta Demo sync map from SKILL.md".
 
@@ -109,7 +107,44 @@ Do NOT ask questions between steps. Make decisions, document them in takes.md, a
 
 ---
 
-## STEP 6 কাস্টমাইজেশন গাইড
+## 🧠 Autonomous Context Understanding & Scene-by-Scene Reasoning Engine
+
+বাস্তব ভিডিওতে ক্রিয়েটর মুখে কখনো এডিটিং ইফেক্টের নাম বলে না। তাই এই স্কিলে যুক্ত করা হয়েছে **Autonomous Context Understanding & Scene-by-Scene Reasoning Engine**।
+
+### এটি কীভাবে কাজ করে?
+
+```
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│                   AUTONOMOUS SCENE-BY-SCENE REASONING PIPELINE                   │
+├──────────────────────────────────────────────────────────────────────────────────┤
+│ 1. Subtitle/Script Ingestion  ➔ Word-level timestamp সহ লাইন ও পজ শনাক্ত করে    │
+│ 2. Semantic Chunking           ➔ বাক্য ও ভাব অনুসারে সিন ভাগ করে (০.১৫s পজ)       │
+│ 3. Cognitive Classification    ➔ সিনের উদ্দেশ্য (Data, Flow, Accent, B-roll ইত্যাদি) নির্ণয় │
+│ 4. Chain-of-Thought (CoT)      ➔ প্রতিটি সিনের আগে কারণ ও ভিজ্যুয়াল স্ট্র্যাটেজি লগে লেখে  │
+│ 5. Dynamic Skill Loading       ➔ skills/ ফোল্ডার থেকে প্রয়োজনীয় স্কিল মেমোরিতে লোড করে  │
+│ 6. Isolated Asset Generation   ➔ 1080x1920 ক্যানভাসে কোড জেনারেট করে (build/scenes/)    │
+│ 7. Sequential Timeline Blend   ➔ ২-ফ্রেম রুল ও সেফ জোনে মাস্টার ভিডিওতে অ্যাসেট সিঙ্ক করে │
+└──────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### কোন কনটেক্সটে কোন স্কিল লোড হবে?
+
+| যখন স্ক্রিপ্টে থাকবে | এআই যে স্কিল লোড করবে | জেনারেটেড ভিজ্যুয়াল আউটপুট |
+|----------------------|-----------------------|---------------------------|
+| **সংখ্যা, পার্সেন্টেজ, ডাটা বৃদ্ধি/হ্রাস** | `skills/chart-animation` | ফ্রেম-ড্রিভেন বার/লাইন চার্ট, কাউন্টার টিকার |
+| **সিস্টেম আর্কিটেকচার, স্টেপস, ফ্লো** | `skills/diagram-animation` | ভেক্টর নোড ডায়গ্রাম, কানেক্টিং ডাটা ফ্লো |
+| **শব্দে জোর, সার্কেল বা আন্ডারলাইন** | `skills/svg-animation` | পেন-ড্রন ভেক্টর হাইলাইটার, অ্যারো, আন্ডারলাইন |
+| **বোল্ড পাঞ্চলাইন ও স্মরণীয় উক্তি** | `skills/kinetic-typography` | হাই-স্পিড কাইনেটিক টাইপোগ্রাফি |
+| **বক্তার পরিচয়, পদবী বা সোশ্যাল** | `skills/lower-thirds` | ট্রান্সপারেন্ট ব্রডকাস্ট লোয়ার থার্ড |
+| **কাজের দৃশ্য, গল্প বা ডেমো** | `skills/talking-head-b-roll` | ক্যানভাস জেনারেটিভ বি-রোল (Treatment B/C) |
+| **তুলনামূলক ফিচার বা লিস্ট** | `skills/animated-infographic` | মাল্টি-পার্ট ইনফোগ্রাফিক কার্ড |
+| **ব্র্যান্ড লোগো বা টুল ইন্ট্রো** | `skills/logo-animation` | ভেক্টর লোগো স্টিং ও রিভিল |
+| **সাবস্ক্রাইব বা কল-টু-অ্যাকশন** | `skills/lottie-animation` | লাইটওয়েট লটি মাইক্রো-ইন্টারঅ্যাকশন |
+| **মুড শিফট বা ব্যাকগ্রাউন্ড ডেপথ** | `skills/motion-background` | পার্টিকেল ড্রাইভেন মোশন ব্যাকগ্রাউন্ড |
+
+---
+
+## STEP 6 কাস্টমাইজেশন গাইড (Meta / Demo Mode এর জন্য)
 
 ### নিজের স্ক্রিপ্ট অনুযায়ী Sync Map রিরাইট কিভাবে করতে হয়
 

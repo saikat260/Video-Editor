@@ -26,28 +26,47 @@ HyperFrames Graphics Engine হলো একটি সম্পূর্ণ HTML
 
 ---
 
-## 🎨 Vector Motion Graphics Subsystem (SVG, Charts & B-Roll Integration)
+## 🎨 Vector Motion Graphics Subsystem (SVG, Charts, Diagrams & Alpha Layers)
 
-HyperFrames ইঞ্জিনটি আমাদের ইন্টিগ্রেটেড স্পেশালাইজড মোশন স্কিলগুলোকে সরাসরি সিনের কনটেক্সট অনুযায়ী কল করে এবং প্রতিটি ফ্রেম ভেক্টর ফরম্যাটে রেন্ডার করে:
+HyperFrames ইঞ্জিনটি `ai-video-director`-এর ডিরেকশন অনুযায়ী সিনের কনটেক্সট ভিত্তিক আইসোলেটেড সিন ফোল্ডার (`build/scenes/scene_NN/`) থেকে কোড পড়ে এবং স্বচ্ছ আলফা চ্যানেলসহ (Transparent Alpha Channel) ফ্রেম-অ্যাকিউরেট ওভারলে ভিডিও রেন্ডার করে। এতে ১০টি স্পেশালাইজড মোশন স্কিল এক ছাতার নিচে কাজ করে:
 
-### ১. পিওর ভেক্টর SVG অ্যানিমেশন (`skills/svg-animation`)
-- **Hand-Drawn Circle / Underline:** কোনো গুরুত্বপূর্ণ শব্দ বা টেক্সটের নিচে হাত দিয়ে দাগ দেওয়ার অ্যানিমেশন `stroke-dasharray` এবং `stroke-dashoffset` দিয়ে ফ্রেম-অ্যাকিউরেট রেন্ডার হয়।
-- **SVG Path Drawing:** পেন-টুল দিয়ে আঁকা ভেক্টর অ্যারো (Arrow), পয়েন্টার, বা ডায়াগ্রাম পাথ ১.২ সেকেন্ডে `expo-out` ইজিং দিয়ে ড্র-অন হয়।
-- **Shape Morphing:** এক আইকন থেকে অন্য আইকন বা শেপে স্মুথ ভেক্টর মরফিং।
-- **1080p ও 4K ক্রিস্পনেস:** ভেক্টর হওয়ায় কখনোই পিক্সেলেশন হয় না।
+| স্কিল | ক্ষমতা ও আউটপুট | ব্যবহারের নিয়ম |
+|-------|----------------|---------------|
+| `skills/svg-animation` | হ্যান্ড-ড্রন পাথ ড্রয়িং, সার্কেল, আন্ডারলাইন, অ্যারো | কোনো শব্দের উপর দৃষ্টি আকর্ষণ করতে |
+| `skills/chart-animation` | ফ্রেম-ড্রিভেন বার/লাইন চার্ট, কাউন্টার টিকার | সংখ্যা, বৃদ্ধি/হ্রাস, রূপান্তর ডাটাতে |
+| `skills/diagram-animation` | ভেক্টর নোড ডায়গ্রাম, কানেক্টিং ডাটা ও পাইপলাইন ফ্লো | আর্কিটেকচার, ধাপ বা প্রসেস বর্ণনায় |
+| `skills/kinetic-typography` | হাই-স্পিড পাঞ্চলাইন টাইপোগ্রাফি | গুরুত্বপূর্ণ উক্তি, স্লোগান বা মূল পয়েন্টে |
+| `skills/lower-thirds` | ট্রান্সপারেন্ট ব্রডকাস্ট লোয়ার থার্ড | নাম, পরিচিতি, সোশ্যাল হ্যান্ডেল বা সিঙ্ক নোটিশে |
+| `skills/talking-head-b-roll` | ক্যানভাস জেনারেটিভ বি-রোল (Treatment A, B, C) | স্পিকার কাভার, ওভারলে কার্ড বা ভিজ্যুয়াল ব্যাখায় |
+| `skills/animated-infographic` | মাল্টি-পার্ট ইনফোগ্রাফিক কার্ড ও তুলনামূলক ডাটা | পাশাপাশি তুলনা বা একাধিক ফিচার পয়েন্টে |
+| `skills/logo-animation` | ভেক্টর লোগো স্টিং ও ব্র্যান্ড রিভিল | সফটওয়্যার, কোম্পানি বা প্রোডাক্ট প্রদর্শনে |
+| `skills/lottie-animation` | লাইটওয়েট লটি মাইক্রো-ইন্টারঅ্যাকশন | সাবস্ক্রাইব, লাইক, নোটিফিকেশন আইকন বা চেইনে |
+| `skills/motion-background` | পার্টিকেল ড্রাইভেন মোশন ব্যাকগ্রাউন্ড | সিনের ট্রানজিশন বা ব্যাকগ্রাউন্ডের মুড তৈরিতে |
 
-### ২. টকিং-হেড মোশন বি-রোল (`skills/talking-head-b-roll`)
-- বক্তার কথা অনুযায়ী স্বয়ংক্রিয়ভাবে ৩টি ট্রিটমেন্ট নির্বাচন:
-  - **Treatment A (Speaker):** শুধু বক্তা (কোনো ওভারলে নেই)।
-  - **Treatment B (Overlay):** বক্তা দৃশ্যমান, একপাশে স্বচ্ছ অ্যানিমেটেড ভেক্টর কার্ড বা কি-ওয়ার্ড।
-  - **Treatment C (Cover):** বক্তাকে ঢেকে ফুল-স্ক্রিন ক্যানভাস-চালিত মোশন সিন (ডাটা, প্রসেস বা উদাহরণের জন্য)।
+### আইসোলেটেড সিন রেন্ডারিং ও আলফা কম্পোজিটিং (Isolated Scene Rendering Engine)
 
-### ৩. ডায়নামিক ডাটা চার্ট ও ইনফোগ্রাফিক (`skills/chart-animation` & `skills/animated-infographic`)
-- সংখ্যার ক্ষেত্রে `scaleLinear` এবং `interpolate` দিয়ে ফ্রেম-ড্রিভেন বার চার্ট বা লাইন গ্রাফ রিভিল।
-- নাম্বার কাউন্টার / টিকার যা ০ থেকে শুরু হয়ে বাস্তব সংখ্যায় এসে থামে।
+প্রতিটি সিন একটি স্বতন্ত্র ডিরেক্টরিতে জেনারেট হয়:
+```
+build/scenes/scene_02_chart/
+├── index.html        # 1080x1920 ক্যানভাস ও transparent background
+├── style.css         # Roberto Nickson Palette (#FFFFFF, #141413, #D97757)
+└── anim.js           # requestAnimationFrame বা WebGL/SVG লুপ
+```
 
-### ৪. ট্রান্সপারেন্ট লোয়ার থার্ডস (`skills/lower-thirds`)
-- চ্যানেল লোগো, বক্তার নাম, সোশ্যাল হ্যান্ডেল এবং সাবস্ক্রাইব রিমাইন্ডার স্বচ্ছ আলফা চ্যানেলসহ রেন্ডার করে মূল ফুটেজে কম্পোজিট করা।
+**আলফা রেন্ডারিং পাইপলাইন:**
+1. HyperFrames হেডলেস ক্রোমিয়াম ব্যবহার করে transparent background সহ প্রতিটি ফ্রেম রেন্ডার করে:
+   ```bash
+   npx hyperframes render build/scenes/scene_02_chart/index.html \
+     --output build/scenes/scene_02_chart/overlay.mov \
+     --codec prores_ks -pix_fmt yuva444p10le \
+     --width 1080 --height 1920 --fps 30
+   ```
+2. ffmpeg `overlay` ফিল্টার দিয়ে শব্দের শুরুর ঠিক ২ ফ্রেম আগে বেস ফুটেজে কম্পোজিট করা হয়:
+   ```bash
+   ffmpeg -i base_graded.mp4 -i build/scenes/scene_02_chart/overlay.mov \
+     -filter_complex "[0:v][1:v]overlay=0:0:enable='between(t, 3.200, 7.500)'[v]" \
+     -map "[v]" -map 0:a output_composite.mp4
+   ```
 
 ---
 
