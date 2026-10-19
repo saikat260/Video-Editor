@@ -1,6 +1,6 @@
 # 🎬 AI Video Editor: Full-Stack Automated Video Editing Suite
 
-> **Edit 100% with AI Code Agents · HyperFrames · ffmpeg**  
+> **Edit 100% with AI Code Agents · HyperFrames · Remotion 3D Engine · ffmpeg**  
 > *Roberto Nickson (RPN) & Kallaway style: clean, cinematic, restrained, and fast-paced.*  
 > No video editing software opened (Premiere Pro, DaVinci Resolve, or CapCut).  
 > Every effect you name in the script happens on screen the exact moment you say it.
@@ -14,7 +14,7 @@
    - [macOS ইনস্টলেশন](#2-macos-ইনস্টলেশন)
    - [Linux / WSL ইনস্টলেশন](#3-linux--wsl-ইনস্টলেশন)
 3. [প্রজেক্ট ফোল্ডার স্ট্রাকচার (Project Structure)](#-প্রজেক্ট-ফোল্ডার-স্ট্রাকচার-project-structure)
-4. [৬টি মডুলার স্কিল আর্কিটেকচার (The 6 Modular Skills)](#-৬টি-মডুলার-স্কিল-আর্কিটেকচার-the-6-modular-skills)
+4. [১৭টি পূর্ণাঙ্গ স্কিল আর্কিটেকচার ও ৩D মোশন ইঞ্জিন (The 17 Modular Skills)](#-১৭টি-পূর্ণাঙ্গ-স্কিল-আর্কিটেকচার-ও-৩d-মোশন-ইঞ্জিন-the-17-modular-skills)
 5. [রেকর্ডিংয়ের ৩টি গোল্ডেন রুলস (Recording Rules)](#-রেকর্ডিংয়ের-৩টি-গোল্ডেন-রুলস-recording-rules)
 6. [মাস্টার প্রম্পট (The Master Prompt)](#-মাস্টার-প্রম্পট-the-master-prompt)
 7. [SRT ফোল্ডার ও বাংলা ভাষা ব্যবহারের নিয়ম (Bengali & SRT Policy)](#-srt-ফোল্ডার-ও-বাংলা-ভাষা-ব্যবহারের-নিয়ম-bengali--srt-policy)
@@ -181,9 +181,9 @@ my-video-project/
 
 ---
 
-## 🧩 পূর্ণাঙ্গ স্কিল স্যুট ও মোশন গ্রাফিক্স আর্কিটেকচার (Complete Skills Suite)
+## 🧩 ১৭টি পূর্ণাঙ্গ স্কিল আর্কিটেকচার ও ৩D মোশন ইঞ্জিন (The 17 Modular Skills)
 
-এই রিপোজিটরিতে ৬টি কোর ভিডিও এডিটিং স্কিল এবং ১০টি স্পেশালাইজড মোশন গ্রাফিক্স/SVG স্কিল একীভূত (Integrated) করা হয়েছে:
+এই রিপোজিটরিতে ৬টি কোর ভিডিও এডিটিং স্কিল এবং ১১টি স্পেশালাইজড মোশন গ্রাফিক্স, ৩D ও SVG স্কিল (মোট ১৭টি) একীভূত (Integrated) করা হয়েছে:
 
 ### কোর ভিডিও এডিটিং পাইপলাইন (Core Pipeline):
 | ক্রম | স্কিল ফোল্ডার | ভূমিকা ও দায়িত্ব |
@@ -293,7 +293,7 @@ my-video-project/
 এটি হলো আপনার আসল ভিডিওর জন্য মাস্টার প্রম্পট। এখানে এআই নিজে থেকে আপনার বক্তব্যের অর্থ বুঝে সম্পূর্ণ এডিটিং করবে:
 
 ```markdown
-Edit a 9:16 short-form video for Instagram, TikTok, and YouTube Shorts using HyperFrames and ffmpeg following the skills/ai-video-director orchestrator pipeline.
+Edit a 9:16 short-form video for Instagram, TikTok, and YouTube Shorts using HyperFrames, Remotion 3D Engine, and ffmpeg following the skills/ai-video-director orchestrator pipeline.
 The bar is a premium creator edit in the style of Roberto Nickson (RPN) and Kallaway: clean, cinematic, fast, and restrained. It must NOT look like a generic AI template.
 I am speaking NATURALLY about my topic — I do NOT say effect names out loud. You must act as an Intelligent Autonomous Video Director. Work through every step without stopping until the preview.
 
@@ -309,7 +309,7 @@ PROJECT FILES:
 - output/ final export location
 
 SKILLS SUITE INTEGRATION:
-You have access to 16 specialized skills in `skills/`. `skills/ai-video-director` is your master orchestrator. During Step 6, you must dynamically read and invoke the specialized motion skills (`skills/chart-animation`, `skills/svg-animation`, `skills/diagram-animation`, `skills/lower-thirds`, `skills/talking-head-b-roll`, `skills/kinetic-typography`, `skills/animated-infographic`, `skills/logo-animation`, etc.) depending on the scene's semantic intent.
+You have access to 17 specialized skills in `skills/`. `skills/ai-video-director` is your master orchestrator. During Step 6, you must dynamically read and invoke the specialized motion skills (including `skills/remotion-motion-engine` for hyper-level 3D graphics, Three.js scenes, floating isometric cards, spring physics & Johnny Harris 3D maps, `skills/chart-animation`, `skills/svg-animation`, `skills/diagram-animation`, `skills/lower-thirds`, `skills/talking-head-b-roll`, `skills/kinetic-typography`, `skills/animated-infographic`, `skills/logo-animation`, etc.) depending on the scene's semantic intent.
 
 STEP 1: BEST TAKE SELECTION
 - Check srt/ folder FIRST. If any .srt file exists, SKIP transcription and use word-level timestamps directly. If empty, run `npx hyperframes transcribe --word-level true`.
@@ -339,7 +339,7 @@ STEP 6: AUTONOMOUS SEMANTIC EDITING & SCENE-BY-SCENE REASONING ENGINE
 Analyze my spoken transcript semantics and execute the 5-Stage Cognitive Framework:
 1. Break speech into scene units at sentence boundaries and natural pauses (> 0.15s).
 2. For each scene, analyze intent and output the mandatory Scene Reasoning Log (CoT): Spoken text, intent classification, visual hypothesis, and restraint audit.
-3. Autonomously load the matching specialized skill from skills/ (such as skills/svg-animation for hand-drawn highlights/arrows, skills/chart-animation for stats/numbers, skills/diagram-animation for workflows/architectures, skills/lower-thirds for speaker credentials, skills/talking-head-b-roll for narrative cutaways, etc.).
+3. Autonomously load the matching specialized skill from skills/ (such as skills/remotion-motion-engine for 3D graphics, spring cards & Johnny Harris 3D maps, skills/svg-animation for hand-drawn highlights/arrows, skills/chart-animation for stats/numbers, skills/diagram-animation for workflows/architectures, skills/lower-thirds for speaker credentials, skills/talking-head-b-roll for narrative cutaways, etc.).
 4. Generate isolated scene assets in build/scenes/scene_NN/ in 1080x1920 (9:16) adhering to safe zones (Top: 220px, Bottom: 420px, Right: 140px).
 5. Composite scenes sequentially on the master timeline with 2-frame handle accuracy, Roberto Nickson palette (#FFFFFF, #141413, #D97757), and synchronized audio SFX (pop, click, whoosh, riser).
 6. Enforce the 2-4s retention rhythm: never stay visually static for more than 4 seconds, and never stack two visual effects simultaneously.
@@ -363,7 +363,7 @@ STEP 8: PREVIEW & VERIFY
 যদি আপনি ইচ্ছাকৃতভাবে এডিটিং নিয়ে কোনো ভিডিও বানান—যেখানে আপনি নিজেই মুখে ইফেক্টের নাম বলেন (যেমন: *"the cuts, the colour grade, the zoom ins..."*)—তখন নিচের ডেমো মোড প্রম্পটটি ব্যবহার করুন:
 
 ```markdown
-Edit a 9:16 short-form video for Instagram and TikTok using HyperFrames and ffmpeg.
+Edit a 9:16 short-form video for Instagram and TikTok using HyperFrames, Remotion 3D Engine, and ffmpeg.
 The video is about its own edit: every effect I name in the script must happen on screen the moment I say it.
 Sync map:
 - "cuts": hard jump cut + sharp click SFX.
@@ -371,6 +371,7 @@ Sync map:
 - "captions": captions switch on, top title fades out.
 - "zoom ins": smooth push-in + whoosh. "zoom outs": smooth pull-out + whoosh.
 - "motion graphics": MOTION GRAPHICS text builds from sliding orange bars (0.8s).
+- "3D graphics" / "3D scene": Remotion Three.js 3D floating isometric card with spring physics / Johnny Harris 3D flight map.
 - "sound effects": minimal waveform pulses with whoosh and pop.
 - "single editing app": card "Editing apps opened: 0".
 - "one prompt": dark terminal card types first line of prompt with counter.
