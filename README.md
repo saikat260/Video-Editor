@@ -193,7 +193,7 @@ my-video-project/
 | **৩** | **[`ffmpeg-video-cutter`](skills/ffmpeg-video-cutter/)** | অডিও ওয়েভফর্ম দেখে ০.১৫s পজ ছাঁটাই, ফেস ট্র্যাকিং জুম (100% vs 120%) এবং S-curve গ্রেডিং করে। |
 | **৪** | **[`hyperframes-graphics-engine`](skills/hyperframes-graphics-engine/)** | শব্দ ধরে হাইলাইট হওয়া ক্যাপশন, সাবজেক্ট কাটআউট (মাথার পেছনে গ্রাফিক্স) ও সেফ-জোন নিশ্চিত করে। |
 | **৫** | **[`audio-sound-designer`](skills/audio-sound-designer/)** | ভয়েস ক্লিনআপ (80Hz হাইপাস), অটো-ডাকিং (-২০ dB), -14 LUFS মাস্টারিং এবং অটো SFX সিন্থেসিস করে। |
-| **৬** | **[`video-qc-revisions`](skills/video-qc-revisions/)** | ফাইনাল রেন্ডারের পূর্বে ৮-দফা QC অডিট পাস এবং ৮টি স্পেশালাইজড রিভিশন প্রম্পট পরিচালনা করে। |
+| **৬** | **[`video-qc-revisions`](skills/video-qc-revisions/)** | ফাইনাল রেন্ডারের পূর্বে ৯-দফা QC অডিট (ভিজ্যুয়াল বৈচিত্র্য সহ) এবং ৮টি স্পেশালাইজড রিভিশন প্রম্পট পরিচালনা করে। |
 
 ### ডায়নামিক মোশন গ্রাফিক্স ও SVG ইঞ্জিন (Integrated Motion Skills from iart-ai):
 | ক্রম | স্কিল ফোল্ডার | ভূমিকা ও সিনের ব্যবহার |
@@ -346,7 +346,7 @@ STEP 7: AUDIO MASTERING
 
 STEP 8: PREVIEW & VERIFY
 - Render preview (540x960) + stills of major visual beats.
-- Verify safe zone, face clearance, and audio clicks.
+- Run 9-point QC check (sync, safe zone, face clearance, mid-word cuts, audio peaks, seamless loop, motion diversity).
 - ⛔ STOP AT PREVIEW. Show me the preview and takes.md. Wait for approval.
 - Final export after approval: output/final.mp4, 1080x1920, H.264 ~18 Mbps, AAC 320k.
 ```

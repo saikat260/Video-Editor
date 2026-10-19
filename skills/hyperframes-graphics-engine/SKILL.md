@@ -66,7 +66,27 @@ build/scenes/scene_02_chart/
    ffmpeg -i base_graded.mp4 -i build/scenes/scene_02_chart/overlay.mov \
      -filter_complex "[0:v][1:v]overlay=0:0:enable='between(t, 3.200, 7.500)'[v]" \
      -map "[v]" -map 0:a output_composite.mp4
-   ```
+
+### 🖥️ Local Chrome Execution & Alpha Headless Bridge (Windows / Local Fallback)
+
+উইন্ডোজ বা লোকাল মেশিনে যখনই কোনো HTML/SVG সিন রেন্ডার হবে:
+1. **কোনো নতুন ব্রাউজার ডাউনলোড করার জন্য অপেক্ষা করবে না বা পাইথন Pillow শর্টকাট নেবে না।**
+2. সরাসরি সিস্টেমের ইন্সটল থাকা গুগল ক্রোম বা এজ ব্যবহার করো:
+   - Google Chrome: `C:\Program Files\Google\Chrome\Application\chrome.exe` (অথবা `C:\Program Files (x86)\Google\Chrome\Application\chrome.exe`)
+   - Microsoft Edge: `C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe`
+3. **কমান্ড প্যাটার্ন (Headless Alpha Rendering):**
+   - ক্রোম দিয়ে সরাসরি আলফা চ্যানেল সহ ফ্রেম এক্সট্রাক্ট করো:
+     ```powershell
+     & "C:\Program Files\Google\Chrome\Application\chrome.exe" --headless --disable-gpu --screenshot="frame_%04d.png" --window-size=1080,1920 scene.html
+     ```
+   - অথবা Puppeteer / Playwright-এ `executablePath` হিসেবে লোকাল ক্রোম পাথ সরাসরি পয়েন্ট করো:
+     ```javascript
+     const browser = await puppeteer.launch({
+       executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+       args: ['--no-sandbox', '--disable-setuid-sandbox', '--window-size=1080,1920']
+     });
+     ```
+   - রেন্ডার হওয়া ফ্রেমগুলো ffmpeg দিয়ে ProRes 4444 বা সরাসরি overlay করা হবে।
 
 ---
 
