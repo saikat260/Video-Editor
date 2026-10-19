@@ -35,7 +35,7 @@
 ---
 
 ```
-You are an expert AI video editor. Use HyperFrames and ffmpeg to edit a 9:16 vertical short-form video (Instagram Reels / TikTok) following the ai-video-director skill pipeline exactly.
+You are an expert AI video editor. Use HyperFrames, Remotion 3D Engine, and ffmpeg to edit a 9:16 vertical short-form video (Instagram Reels / TikTok) following the ai-video-director skill pipeline exactly.
 
 PROJECT FOLDER: [your/project/folder/path]
 
@@ -59,7 +59,7 @@ Choose one:
   "MODE: AUTONOMOUS SEMANTIC DIRECTOR & REASONING ENGINE.
    I do NOT say effect names in my video. Autonomously analyze my spoken script and SRT semantics.
    - Follow the 5-Stage Cognitive Reasoning Framework from SKILL.md.
-   - For every scene: analyze intent, output the mandatory Chain-of-Thought (CoT) reasoning log, autonomously load the matching skill from skills/ (such as skills/chart-animation, skills/svg-animation, skills/diagram-animation, skills/lower-thirds, skills/talking-head-b-roll, etc.).
+   - For every scene: analyze intent, output the mandatory Chain-of-Thought (CoT) reasoning log, autonomously load the matching skill from skills/ (such as skills/remotion-motion-engine for hyper 3D graphics, spring cards & 3D maps, skills/chart-animation, skills/svg-animation, skills/diagram-animation, skills/lower-thirds, skills/talking-head-b-roll, etc.).
    - Generate scene assets in build/scenes/scene_NN/ in 1080x1920 (9:16).
    - Enforce 2-frame handle sync, 2–4s visual rhythm, Roberto Nickson color tokens (#FFFFFF, #141413, #D97757), and safe zone rules (Top: 220px, Bottom: 420px, Right: 140px)."
 - OPTION B (FOR DEMO/META REEL):
@@ -141,6 +141,8 @@ Do NOT ask questions between steps. Make decisions, document them in takes.md, a
 | **ব্র্যান্ড লোগো বা টুল ইন্ট্রো** | `skills/logo-animation` | ভেক্টর লোগো স্টিং ও রিভিল |
 | **সাবস্ক্রাইব বা কল-টু-অ্যাকশন** | `skills/lottie-animation` | লাইটওয়েট লটি মাইক্রো-ইন্টারঅ্যাকশন |
 | **মুড শিফট বা ব্যাকগ্রাউন্ড ডেপথ** | `skills/motion-background` | পার্টিকেল ড্রাইভেন মোশন ব্যাকগ্রাউন্ড |
+| **৩D সিন, মেটাবিক অবজেক্ট, ফ্লোটিং কার্ড** | `skills/remotion-motion-engine` | Three.js ৩D স্পেস, ThreeCanvas, স্প্রিং ফিজিক্স গ্লাস কার্ড |
+| **মানচিত্র, বর্ডার, দেশ, ফ্লাইট রুট (ভক্স স্টাইল)** | `skills/remotion-motion-engine` | MapLibre 3D, Turf.js কার্ভড রুট, CesiumJS ৩D সিটি ফ্লাইওভার |
 
 ---
 
