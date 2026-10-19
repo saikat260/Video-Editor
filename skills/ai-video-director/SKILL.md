@@ -38,20 +38,72 @@ outputs:
 
 ## Overview
 
-এই স্কিল **Roberto Nickson (RPN)** ও **Kallaway**-এর স্টাইলে প্রিমিয়াম ক্রিয়েটর-গ্রেড এডিট তৈরি করে — সম্পূর্ণভাবে কোডের মাধ্যমে, কোনো গ্রাফিক্যাল এডিটর ছাড়া। এটি একটি **9-স্টেপ, ফুলি-অটোমেটেড পাইপলাইন** যা:
+## Overview
+
+এই স্কিল **Roberto Nickson (RPN)** ও **Kallaway**-এর স্টাইলে প্রিমিয়াম ক্রিয়েটর-গ্রেড এডিট তৈরি করে — সম্পূর্ণভাবে কোডের মাধ্যমে, কোনো গ্রাফিক্যাল এডিটর ছাড়া। এটি একটি **১০-স্টেপ ইন্টেলিজেন্ট প্রোডাকশন পাইপলাইন** যা:
 
 - Raw footage থেকে শুরু করে publication-ready 9:16 ভার্টিক্যাল ভিডিও তৈরি করে।
 - স্ক্রিপ্টের **প্রতিটি শব্দের** সাথে সিঙ্ক্রোনাইজড ভিজ্যুয়াল ইফেক্ট প্রয়োগ করে (sync map)।
 - SRT ফাইল উপস্থিত থাকলে স্বয়ংক্রিয়ভাবে ট্রান্সক্রিপশন স্কিপ করে — সময় ও API কোটা বাঁচায়।
 - বাংলা, ইংরেজি ও অন্যান্য ভাষার কনটেন্ট সমানভাবে সাপোর্ট করে।
 - ক্যাপশন, কালার গ্রেড, জুম, সাউন্ড ডিজাইন ও মোশন গ্রাফিক্স — সব **একটি পাইপলাইনে** সম্পন্ন করে।
-- **মাত্র একবার** থামে: প্রিভিউ অনুমোদনের জন্য।
+- **দুটি নিয়ন্ত্রিত অনুমোদন গেট (Two Strict Approval Gates):**
+  1. **Gate 1 (Pre-Flight Creative Blueprint):** কোনো কোড লেখা বা কাটের আগে এআই সম্পূর্ণ ভিডিওর একটি সুপার-ডিটেইল্ড ক্রিয়েটিভ বোর্ড বা তালিকা পেশ করে এবং ব্যবহারকারীর অনুমোদনের জন্য অপেক্ষা করে।
+  2. **Gate 2 (Final Preview Approval):** ফাইনাল রেন্ডারের পূর্বে ৫৪০×৯৬০ প্রিভিউ ও ৯-পয়েন্ট QC রিপোর্ট দেখে ব্যবহারকারী ফাইনাল অনুমোদন দেয়।
 
 এই স্কিলের প্রধান দর্শন: **"No timeline. Only code."** — প্রতিটি কাট, ট্রানজিশন, ইফেক্ট ও টাইমিং একটি নির্ভুল, পুনরাবৃত্তিযোগ্য কোডবেসে এনকোড করা থাকে।
 
 ---
 
-## The 9-Step Pipeline (সম্পূর্ণ কর্মপ্রবাহ)
+## The 10-Step Pipeline (সম্পূর্ণ কর্মপ্রবাহ)
+
+### STEP 0: THE CREATIVE STORYBOARD & EXECUTION BLUEPRINT (CRITICAL APPROVAL GATE #1)
+
+কোনো ক্লিপ কাটা, কোড রান করা বা অ্যাসেট রেন্ডার করার পূর্বে এআই ডিরেক্টর স্ক্রিপ্ট, SRT ও অডিও অ্যানালাইসিস করে **সম্পূর্ণ ভিডিওর একটি দৃশ্যভিত্তিক সুপার-ডিটেইল্ড ক্রিয়েটিভ বোর্ড (Creative Blueprint Table)** তৈরি করে চ্যাটে উপস্থাপন করবে এবং **বাধ্যতামূলকভাবে থামবে (STOP & WAIT FOR APPROVAL)**।
+
+#### ক্রিয়েটিভ বোর্ডে যা যা উল্লেখ থাকা ১০০% বাধ্যতামূলক:
+
+1. **Scene ID & Timing:** প্রতিটি সিনের শুরু ও শেষ মিলিসেকেন্ড টাইমস্ট্যাম্প (যেমন `Scene 01 (00:00 - 00:03.2)`).
+2. **Spoken Line:** বক্তা এই সিনে ঠিক কোন বাক্যটি বলছেন।
+3. **A-Roll Composition (Full vs PiP):**
+   - কোথায় A-Roll ফুল-স্ক্রিন থাকবে (Face wide 100% বা close 120%)।
+   - কোথায় মেইন A-Roll কে PiP (Picture-in-Picture) করা হবে (যেমন: Floating corner pill / hexagonal mask, scale 40-50%)।
+4. **Custom BG for PiP (কাস্টম ব্যাকগ্রাউন্ড রুল):**
+   - যখনই A-Roll কে PiP করা হবে, তখন মেইন ব্যাকগ্রাউন্ড হিসেবে ব্যবহারকারীর দেওয়া কাস্টম ব্যাকগ্রাউন্ড (`assets/images/bg.*` বা `assets/broll/bg.*` বা প্রজেক্ট ব্র্যান্ড ব্যাকগ্রাউন্ড) সিনেমাটিক ডার্ক ভিনেট সহ বসবে। কোনো সলিড কালার বা ফাঁকা কালো স্ক্রিন সম্পূর্ণ নিষিদ্ধ।
+5. **Face Protection Clearance (মুখের ওপর কোনো অ্যাসেট নয়):**
+   - কোনোভাবেই A-Roll ক্যারেক্টারের মুখের ওপর কোনো টেক্সট, গ্রাফিক, আইকন বা কার্ড বসানো যাবে না।
+   - বোর্ডে গ্যারান্টি দিতে হবে: `✅ Face 100% Clear (Graphic placed in top-third/bottom-third safe zone or A-Roll moved to PiP)`.
+6. **Target Skill & Asset Sourcing:**
+   - সুনির্দিষ্ট স্কিল নাম (`skills/remotion-motion-engine`, `skills/svg-animation`, `skills/chart-animation`, `skills/diagram-animation`, `skills/talking-head-b-roll`, `skills/kinetic-typography` ইত্যাদি)।
+   - অ্যাসেট সোর্স: পিওর ভেক্টর SVG, Lottie অ্যানিমেশন, ইন্টারনেট/ওয়েব থেকে ইমেজ ডাউনলোড, লোকাল ইমেজ (`assets/images/`), নাকি 3D ভেক্টর ম্যাপ (MapLibre/Cesium)।
+7. **Image BG Treatment (কাটআউট বনাম ব্যাকগ্রাউন্ড):**
+   - ব্যবহৃত ছবির ব্যাকগ্রাউন্ড কি কাটআউট হবে (Transparent alpha via rembg/canvas) নাকি অরিজিনাল ব্যাকগ্রাউন্ড রাখা হবে নাকি ৩D গ্লাস কার্ডে ব্লার করা হবে।
+8. **Visual Mechanics & Motion (অ্যানিমেশন ডিটেইল):**
+   - কি ইফেক্ট এবং কি মোশন ঘটবে (Spring physics mass/damping, 3D perspective tilt, stroke-dashoffset path drawing, mask-reveal split, camera orbit ইত্যাদি)।
+9. **Apple-Level 3D Hook (স্ক্রল-আটকানো প্রথম ৩ সেকেন্ড):**
+   - Scene 01 (00:00 - 00:03) আবশ্যিকভাবে অ্যাপল কিনোট বা হাই-এন্ড সিলিকন ভ্যালি ক্রিয়েটর লেভেলের ৩D মোশন গ্রাফিক্স (Remotion Three.js 3D glass hologram, floating isometric 3D card tilt, অথবা 3D particle sphere) দিয়ে শুরু হবে যাতে দর্শকের স্ক্রল চোখের পলকে আটকে যায়!
+10. **Anti-Box & Punchy Typographic Style:**
+    - মোশন গ্রাফিক্স সবসময় যে কোনো চারকোনা বক্সের মধ্যে রাখতে হবে এমন কোনো বাধ্যবাধকতা নেই। বর্ডারলেস মাস্ক রিভিল, ওপেন ভেক্টর, ৩D ফ্লোটিং ইলিমেন্ট ব্যবহার করতে হবে।
+    - টেক্সটগুলো হতে হবে মোবাইল স্ক্রিনে সহজে পড়ার মতো বড় সাইজের (৬৮–৮৪px), পাঞ্চি, হাই কনট্রাস্ট এবং অ্যাক্টিভ কি-ওয়ার্ড অরেঞ্জ `#D97757` গ্লো সহ।
+11. **SFX & Sound Sync:** সংশ্লিষ্ট সাউন্ড ইফেক্ট (`whoosh.wav`, `click.wav`, `pop.wav`, `riser.wav`) এবং মিউজিক ডাকিং লেভেল।
+
+#### ক্রিয়েটিভ বোর্ড মাস্টার টেবিল ফরম্যাট:
+
+```markdown
+### 📋 THE CREATIVE STORYBOARD & EXECUTION BLUEPRINT
+
+| Scene ID & Time | Spoken Line | A-Roll Layout | Custom BG (PiP) | Face Protected? | Target Skill & Asset Sourcing | Image BG Treatment | Visual Effect & Motion Spec | Typography Style | SFX & Audio |
+|---|---|---|---|---|---|---|---|---|---|
+| **Scene 01** (00:00 - 00:03.2) | "এই একটা ট্রিক আপনার পুরো ভিডিও প্রোডাকশন বদলে দেবে" | PiP Floating Pill (Bottom-Right, 45% scale) | YES (`assets/images/bg.png` + vignette) | ✅ 100% CLEAR (A-Roll in corner; Graphic in top-center safe zone) | `skills/remotion-motion-engine` + Three.js + WebGL | Transparent Cutout + 3D Specular Lighting | **Apple-Level 3D Hook:** 3D glowing particle hologram opens with spring physics (damping: 14), camera orbits 15° to freeze scroll | 84px Bold Borderless Mask-Reveal ("THE GAME CHANGER"), Orange #D97757 Glow (NO BOX) | Sub-bass riser + whoosh on frame 0 |
+| **Scene 02** (00:03.2 - 00:06.5) | "গত এক বছরে আমাদের কনভার্সন রেট ১২% থেকে ৪৭% হয়েছে" | Full-Screen A-Roll (Face-Tracked Close 120%) | N/A | ✅ 100% CLEAR (Lower 30% safe zone, 200px below chin) | `skills/chart-animation` | SVG Vector Chart | Live counting ticker with green axis glow and particle trail | 72px Bold Numbers with live ticker counter | Pop SFX on numbers hit |
+```
+
+> ⛔ **APPROVAL GATE #1 STOP RULE:**
+> ক্রিয়েটিভ বোর্ড টেবিল আউটপুট করার পর এআই কোনোভাবেই স্বয়ংক্রিয়ভাবে ভিডিও এডিটিং বা রেন্ডারিং শুরু করবে না।
+> চ্যাটে স্পষ্ট লিখে থামবে:
+> *"আমি আপনার স্ক্রিপ্ট অনুযায়ী সম্পূর্ণ ক্রিয়েটিভ স্টোরিবোর্ড প্রস্তুত করেছি। অনুগ্রহ করে ক্রিয়েটিভ বোর্ডটি যাচাই করে 'Approve' লিখুন অথবা কোনো দৃশ্যে পরিবর্তন চান কি না জানান। আপনার অনুমোদন পেলে আমি পরবর্তী ধাপে অগ্রসর হব।"*
+
+---
 
 ### STEP 1: TRANSCRIPTION & BEST TAKE SELECTION
 

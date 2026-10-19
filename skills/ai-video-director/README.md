@@ -88,21 +88,33 @@ OLD VIDEO RE-EDIT:
 [If not applicable, write: "No old video to re-edit."]
 
 PIPELINE INSTRUCTIONS:
-1. Follow the 9-step pipeline from the ai-video-director SKILL.md exactly.
+0. 📋 STEP 0: CREATIVE STORYBOARD & BLUEPRINT (MANDATORY APPROVAL GATE #1):
+   - Before cutting footage, generating code, or assembling timeline, you MUST output a super-detailed Creative Storyboard & Execution Blueprint Table for the entire video scene-by-scene:
+     * Scene ID & Exact Timing (Start/End)
+     * Spoken Script Line
+     * A-Roll Composition: When is A-Roll Full-Screen (100% wide / 120% close) vs PiP (corner floating pill / hex mask)?
+     * Custom BG for PiP: When PiP is active, you MUST use my supplied background (`assets/images/bg.*` or `assets/broll/bg.*`) with cinematic vignette — NEVER plain black or solid flat color.
+     * Strict Face Protection: 100% guarantee that NO text, graphic card, icon, or motion asset covers or overlaps the character's face/eyes.
+     * Target Skill & Asset Sourcing: Explicit skill from `skills/` (`skills/remotion-motion-engine`, `skills/svg-animation`, `skills/chart-animation`, `skills/diagram-animation`, `skills/talking-head-b-roll`, etc.) and asset type (Lottie, Pure SVG, Web/local image download, or 3D MapLibre/Cesium map).
+     * Asset BG Treatment: Cutout transparent alpha (rembg/canvas) vs keep background vs 3D glass card.
+     * Visual Effect & Motion Mechanics: Spring physics (mass/damping), 3D perspective tilt, path-draw stroke-dashoffset, mask-reveal split, camera orbit.
+     * Apple-Level 3D Hook: First 3 seconds MUST feature an Apple keynote-level 3D motion graphics hook (Remotion Three.js 3D glass particle hologram or 3D spring tilt) to stop the viewer's scroll instantly.
+     * Anti-Box Rule & Punchy Typography: Motion graphics do NOT have to be trapped inside generic rounded boxes. Use borderless mask reveals (`clip-path`) and floating 3D elements. Typography MUST be large, punchy, easily readable (68-84px), with accent keyword glow in #D97757.
+     * SFX & Audio Sync: Precise sound effects (`whoosh`, `pop`, `click`, `riser`) and ducking.
+   - ⛔ STOP HERE (GATE #1): Present the complete Creative Blueprint table in chat and STOP. Wait for my approval ("Approve" or revisions) before proceeding to Step 1.
+1. Follow the 10-step pipeline from the ai-video-director SKILL.md.
 2. Check srt/ folder FIRST. If any .srt file matches a clip name, use it directly — do NOT call `npx hyperframes transcribe` for that clip.
 3. Select the best take for each script line. Document every decision in takes.md.
 4. Remove all pauses > 0.15s. Keep 2-frame handles on every cut.
 5. Apply cinematic colour grade: S-curve, warm skintone, cool shadows, vignette, film grain.
 6. Apply smart zooms: face-tracked, alternating 100% and 120%, max 115% for 1080p source.
 7. Apply captions: word-level timing, active keyword in #D97757, safe zone enforced.
-8. Execute the sync map beats — each effect within 2 frames of the trigger word.
+8. Execute the approved sync map beats — for 3D/maps use Remotion 3D Engine with WebGL Angle backend.
 9. Clean voice audio, duck music to 12%, master to -14 LUFS.
 10. Generate preview (540×960) + stills for every sync beat.
-11. ⛔ STOP HERE. Show preview and stills. Wait for approval.
+11. ⛔ STOP HERE (GATE #2). Show preview, stills, and 9-point QC report. Wait for final approval.
 12. After approval: render output/final.mp4 at 1080×1920, H.264 ~18 Mbps, AAC 320k.
 13. Print final report with real numbers.
-
-Do NOT ask questions between steps. Make decisions, document them in takes.md, and continue. Only stop at the preview step.
 ```
 
 ---

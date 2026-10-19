@@ -295,7 +295,7 @@ my-video-project/
 ```markdown
 Edit a 9:16 short-form video for Instagram, TikTok, and YouTube Shorts using HyperFrames, Remotion 3D Engine, and ffmpeg following the skills/ai-video-director orchestrator pipeline.
 The bar is a premium creator edit in the style of Roberto Nickson (RPN) and Kallaway: clean, cinematic, fast, and restrained. It must NOT look like a generic AI template.
-I am speaking NATURALLY about my topic — I do NOT say effect names out loud. You must act as an Intelligent Autonomous Video Director. Work through every step without stopping until the preview.
+I am speaking NATURALLY about my topic — I do NOT say effect names out loud. You must act as an Intelligent Autonomous Video Director. Work through every step with the two required approval stops.
 
 PROJECT FILES:
 - raw/ every take I recorded, in recording order
@@ -304,12 +304,30 @@ PROJECT FILES:
 - assets/music/ background track
 - assets/sfx/ whoosh, pop, click, riser, swoosh (if empty, synthesize soft sine clicks or keep silent)
 - assets/fonts/ caption font (if empty, default to Montserrat ExtraBold or Noto Sans Bengali Bold)
-- assets/images/ logos, screenshots, infographics to display when tools/topics are mentioned
-- assets/broll/ supporting B-roll video clips to cut to during explanations
+- assets/images/ logos, screenshots, infographics, and custom background (bg.png / bg.jpg)
+- assets/broll/ supporting B-roll video clips or custom animated background footage
 - output/ final export location
 
 SKILLS SUITE INTEGRATION:
 You have access to 17 specialized skills in `skills/`. `skills/ai-video-director` is your master orchestrator. During Step 6, you must dynamically read and invoke the specialized motion skills (including `skills/remotion-motion-engine` for hyper-level 3D graphics, Three.js scenes, floating isometric cards, spring physics & Johnny Harris 3D maps, `skills/chart-animation`, `skills/svg-animation`, `skills/diagram-animation`, `skills/lower-thirds`, `skills/talking-head-b-roll`, `skills/kinetic-typography`, `skills/animated-infographic`, `skills/logo-animation`, etc.) depending on the scene's semantic intent.
+
+PIPELINE EXECUTION:
+
+STEP 0: THE CREATIVE STORYBOARD & BLUEPRINT (MANDATORY APPROVAL GATE #1)
+Before cutting footage, generating code, or assembling timeline, you MUST output a super-detailed Creative Storyboard & Execution Blueprint Table for the entire video scene-by-scene:
+1. Scene ID & Exact Timing (Start/End)
+2. Spoken Script Line
+3. A-Roll Composition: When is A-Roll Full-Screen (100% wide / 120% close) vs PiP (corner floating pill / hex mask)?
+4. Custom BG for PiP: When PiP is active, you MUST use my supplied background (`assets/images/bg.*` or `assets/broll/bg.*`) with cinematic dark vignette — NEVER plain black or solid flat color.
+5. Strict Face Protection: 100% guarantee that NO text, graphic card, icon, or motion asset covers or overlaps the character's face/eyes.
+6. Target Skill & Asset Sourcing: Explicit skill from `skills/` (`skills/remotion-motion-engine`, `skills/svg-animation`, `skills/chart-animation`, `skills/diagram-animation`, `skills/talking-head-b-roll`, etc.) and asset type (Lottie, Pure SVG, Web/local image download, or 3D MapLibre/Cesium map).
+7. Asset BG Treatment: Cutout transparent alpha (rembg/canvas) vs keep background vs 3D glass card.
+8. Visual Effect & Motion Mechanics: Spring physics (mass/damping), 3D perspective tilt, path-draw stroke-dashoffset, mask-reveal split, camera orbit.
+9. Apple-Level 3D Hook: First 3 seconds MUST feature an Apple keynote-level 3D motion graphics hook (Remotion Three.js 3D glass particle hologram or 3D spring tilt) to stop the viewer's scroll instantly.
+10. Anti-Box Rule & Punchy Typography: Motion graphics do NOT have to be trapped inside generic rounded boxes. Use borderless mask reveals (`clip-path`) and floating 3D elements. Typography MUST be large, punchy, easily readable (68-84px), with accent keyword glow in #D97757.
+11. SFX & Audio Sync: Precise sound effects (`whoosh`, `pop`, `click`, `riser`) and ducking.
+
+⛔ STOP HERE (GATE #1): Present the complete Creative Blueprint table in chat and STOP. Wait for my approval ("Approve" or revisions) before proceeding to Step 1.
 
 STEP 1: BEST TAKE SELECTION
 - Check srt/ folder FIRST. If any .srt file exists, SKIP transcription and use word-level timestamps directly. If empty, run `npx hyperframes transcribe --word-level true`.
@@ -325,24 +343,23 @@ STEP 3: CINEMATIC GRADE
 - Clean S-curve contrast, warm natural skin tones, slightly cool shadows, soft vignette, very subtle film grain.
 - Match exposure and white balance across all takes so cuts don't flicker.
 
-STEP 4: FACE-TRACKED DYNAMIC ZOOMS
+STEP 4: FACE-TRACKED DYNAMIC ZOOMS & A-ROLL FRAMING
 - Track my face so every zoom centers on my eyes.
-- Two framings: Wide at 100% and Close at 120%. Alternate framings on jump cuts (sentence/thought boundaries) so the cuts look deliberate and dynamic.
+- Two framings: Wide at 100% and Close at 120%. Alternate framings on jump cuts (sentence/thought boundaries).
 - If source is 1080p, cap zooms at 115% for sharpness.
+- When PiP is designated in Blueprint, smoothly transition A-Roll into floating corner pill over custom background.
 
 STEP 5: KINETIC CAPTIONS
 - 2 to 4 words per caption, word-level timing, bold sans typography, lower middle of the frame (safe zone).
 - Active spoken word highlighted in accent orange #D97757 (80ms fade-in, no bouncing).
 - Strict Safe Zone: nothing in the top 220px, bottom 420px, or right 140px.
 
-STEP 6: AUTONOMOUS SEMANTIC EDITING & SCENE-BY-SCENE REASONING ENGINE
-Analyze my spoken transcript semantics and execute the 5-Stage Cognitive Framework:
-1. Break speech into scene units at sentence boundaries and natural pauses (> 0.15s).
-2. For each scene, analyze intent and output the mandatory Scene Reasoning Log (CoT): Spoken text, intent classification, visual hypothesis, and restraint audit.
-3. Autonomously load the matching specialized skill from skills/ (such as skills/remotion-motion-engine for 3D graphics, spring cards & Johnny Harris 3D maps, skills/svg-animation for hand-drawn highlights/arrows, skills/chart-animation for stats/numbers, skills/diagram-animation for workflows/architectures, skills/lower-thirds for speaker credentials, skills/talking-head-b-roll for narrative cutaways, etc.).
-4. Generate isolated scene assets in build/scenes/scene_NN/ in 1080x1920 (9:16) adhering to safe zones (Top: 220px, Bottom: 420px, Right: 140px).
-5. Composite scenes sequentially on the master timeline with 2-frame handle accuracy, Roberto Nickson palette (#FFFFFF, #141413, #D97757), and synchronized audio SFX (pop, click, whoosh, riser).
-6. Enforce the 2-4s retention rhythm: never stay visually static for more than 4 seconds, and never stack two visual effects simultaneously.
+STEP 6: AUTONOMOUS SEMANTIC EDITING & SCENE-BY-SCENE EXECUTION
+Execute the approved Creative Blueprint:
+1. Autonomously load matching skills from skills/ (such as skills/remotion-motion-engine for 3D graphics, spring cards & Johnny Harris 3D maps, skills/svg-animation, skills/chart-animation, skills/diagram-animation, skills/talking-head-b-roll, etc.).
+2. Generate isolated scene assets in build/scenes/scene_NN/ in 1080x1920 (9:16) adhering to safe zones. For 3D scenes, render with Remotion and WebGL Angle backend.
+3. Composite scenes sequentially on the master timeline with 2-frame handle accuracy, Roberto Nickson palette (#FFFFFF, #141413, #D97757), and synchronized audio SFX (pop, click, whoosh, riser).
+4. Enforce the 2-4s retention rhythm: never stay visually static for more than 4 seconds, and never stack two visual effects simultaneously.
 
 STEP 7: AUDIO MASTERING
 - Clean voice: 80Hz high-pass filter, gentle noise suppression, smooth compression.
@@ -352,7 +369,7 @@ STEP 7: AUDIO MASTERING
 STEP 8: PREVIEW & VERIFY
 - Render preview (540x960) + stills of major visual beats.
 - Run 9-point QC check (sync, safe zone, face clearance, mid-word cuts, audio peaks, seamless loop, motion diversity).
-- ⛔ STOP AT PREVIEW. Show me the preview and takes.md. Wait for approval.
+- ⛔ STOP AT PREVIEW (GATE #2). Show me the preview, stills, and 9-point QC report. Wait for approval.
 - Final export after approval: output/final.mp4, 1080x1920, H.264 ~18 Mbps, AAC 320k.
 ```
 
@@ -365,6 +382,7 @@ STEP 8: PREVIEW & VERIFY
 ```markdown
 Edit a 9:16 short-form video for Instagram and TikTok using HyperFrames, Remotion 3D Engine, and ffmpeg.
 The video is about its own edit: every effect I name in the script must happen on screen the moment I say it.
+STEP 0: Output the Creative Storyboard & Blueprint Table first with Apple-level 3D hook on frame 0, face clearance verified, PiP with custom background, and legible punchy typography. ⛔ STOP AND WAIT FOR APPROVAL.
 Sync map:
 - "cuts": hard jump cut + sharp click SFX.
 - "colour grading": drop to ungraded, then thin vertical line sweeps grade back in.
@@ -376,7 +394,7 @@ Sync map:
 - "single editing app": card "Editing apps opened: 0".
 - "one prompt": dark terminal card types first line of prompt with counter.
 - "Comment": kinetic text + comment bubble. Last frame matches frame 0 (seamless loop).
-Work through all steps and stop only at preview.
+Work through all steps following the two approval gates (Step 0 Blueprint Approval and Step 8 Preview Approval).
 ```
 
 ---
