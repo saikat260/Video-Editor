@@ -187,12 +187,17 @@ ffmpeg -i assembled.mp4 -i assets/sfx/whoosh.wav \
 ┌────────────────────────────────────────────────────────────────────────┐
 │               FFMPEG NATIVE AUDIO SYNTHESIS ENGINE                     │
 ├─────────────┬──────────────────────────────────────────────────────────┤
-│ click.wav   │ 1600Hz sine micro-burst (15ms) — জাম্প কাটের জন্য        │
-│ pop.wav     │ 850Hz → 300Hz pitch-sweep sine (50ms) — কার্ড পপ-আপের জন্য│
-│ whoosh.wav  │ Bandpassed white noise sweep (300ms) — পুশ-ইন জুমের জন্য │
-│ swoosh.wav  │ Airy pink noise sweep (220ms) — টেক্সট স্লাইডের জন্য     │
-│ riser.wav   │ 200Hz → 550Hz rising sine tone (1.0s) — ক্লাইম্যাক্সের জন্য│
-└─────────────┴──────────────────────────────────────────────────────────┘
+│ click.wav       │ 1600Hz sine micro-burst (15ms) — জাম্প কাটের জন্য                    │
+│ pop.wav         │ 850Hz → 300Hz pitch-sweep sine (50ms) — কার্ড পপ-আপের জন্য            │
+│ whoosh.wav      │ Bandpassed white noise sweep (300ms) — পুশ-ইন জুমের জন্য             │
+│ swoosh.wav      │ Airy pink noise sweep (220ms) — টেক্সট স্লাইডের জন্য                 │
+│ riser.wav       │ 200Hz → 550Hz rising sine tone (1.0s) — ক্লাইম্যাক্সের জন্য            │
+│ glass_tap.wav   │ 2400Hz crystalline resonance (60ms) — ৩D গ্লাস কার্ড / UI উইন্ডো     │
+│ paper_slide.wav │ Textured crisp friction noise (180ms) — জনি হ্যারিস পেপার / ডকুমেন্টের জন্য │
+│ sub_impact.wav  │ 65Hz sub-bass sine drop (280ms) — বড় সংখ্যা ও কি-মেট্রিক লকের জন্য     │
+│ tech_click.wav  │ 3200Hz mechanical switch click (25ms) — কোড / ডাটা টাইপিংয়ের জন্য     │
+│ marker_draw.wav │ Bandpass textured scratch (350ms) — মার্কার হাইলাইট ও অ্যারোর জন্য   │
+└─────────────────┴──────────────────────────────────────────────────────────────────────┘
 ```
 
 #### ffmpeg সিন্থেসিস কমান্ডসমূহ:
@@ -212,11 +217,61 @@ ffmpeg -f lavfi -i "anoise=d=0.22:c=pink,bandpass=f=950:width_type=h:w=600,afade
 
 # 5. Riser SFX (বিল্ড-আপ বা রিভিলের জন্য)
 ffmpeg -f lavfi -i "aeval='0.2*sin(2*PI*(200+350*t)*t)':d=1.0,afade=t=in:st=0:d=0.25,afade=t=out:st=0.75:d=0.25" -c:a pcm_s16le assets/sfx/riser.wav
+
+# 6. Glass Tap SFX (৩D গ্লাস কার্ড, হলোগ্রাম ও UI পপ-আপের জন্য ক্রিস্টালাইন ট্যাপ)
+ffmpeg -f lavfi -i "sine=frequency=2400:duration=0.06,afade=t=in:st=0:d=0.002,afade=t=out:st=0.008:d=0.052,volume=0.22" -c:a pcm_s16le assets/sfx/glass_tap.wav
+
+# 7. Paper Slide SFX (জনি হ্যারিস স্টাইলের আর্কাইভাল পেপার, ম্যাপ ও ডকুমেন্ট স্লাইড)
+ffmpeg -f lavfi -i "anoise=d=0.18:c=brown,bandpass=f=2200:width_type=h:w=1200,afade=t=in:st=0:d=0.03,afade=t=out:st=0.04:d=0.14,volume=0.30" -c:a pcm_s16le assets/sfx/paper_slide.wav
+
+# 8. Sub-Bass Impact (বড় সংখ্যা, কি-মেট্রিক ও পাঞ্চ-লাইন লকের জন্য সিনেমাটিক বুম)
+ffmpeg -f lavfi -i "aeval='0.4*sin(2*PI*(75-120*t)*t)':d=0.28,afade=t=in:st=0:d=0.01,afade=t=out:st=0.05:d=0.23" -c:a pcm_s16le assets/sfx/sub_impact.wav
+
+# 9. Tech Click (মেকানিক্যাল সুইচ, টার্মিনাল কোড টাইপিং ও কাউন্টার টিকার)
+ffmpeg -f lavfi -i "sine=frequency=3200:duration=0.025,afade=t=in:st=0:d=0.001,afade=t=out:st=0.005:d=0.020,volume=0.26" -c:a pcm_s16le assets/sfx/tech_click.wav
+
+# 10. Marker Draw (হ্যান্ড-ড্রন ভেক্টর অ্যারো, আন্ডারলাইন ও মার্কার হাইলাইটার স্ট্রোক)
+ffmpeg -f lavfi -i "anoise=d=0.35:c=pink,bandpass=f=2800:width_type=h:w=1600,afade=t=in:st=0:d=0.05,afade=t=out:st=0.10:d=0.25,volume=0.25" -c:a pcm_s16le assets/sfx/marker_draw.wav
 ```
 
 > **অটো-ফলব্যাক পলিসি:**
 > - যদি `assets/sfx/` ফোল্ডারে ফাইল থাকে ➔ সেই কাস্টম ফাইল ব্যবহার করো।
 > - যদি `assets/sfx/` ফোল্ডার খালি থাকে ➔ উপরের কমান্ডগুলো চালিয়ে ফাইলগুলো স্বয়ংক্রিয়ভাবে জেনারেট করে নাও। কোনো থার্ড-পার্টি অডিও ডাউনলোড করার দরকার নেই!
+
+---
+
+## ⚡ Event-Driven Visual-Audio Synchronization (`window.EV` ➔ `events.json`)
+
+Lemo-Opuscar মেথডোলজিতে অডিও প্লেসমেন্ট কোনো ম্যানুয়াল অনুমানের ওপর নির্ভর করে না। এটি কোড-ড্রাইভেন ইভেন্ট বাস দিয়ে পরিচালিত হয়:
+
+1. **ইভেন্ট ইমিট (Motion Graphics Layer):**
+   HTML5 ক্যানভাস, এসভিজি বা রিমোশন থ্রি.জেএস পেজ রেন্ডার করার সময় ফ্রেমের নির্দিষ্ট মুহূর্তে ইভেন্ট অ্যারে তৈরি করে:
+   ```javascript
+   window.EV = [
+     { t: 0.85, material: "glass", action: "reveal", sfx: "glass_tap.wav" },
+     { t: 2.10, material: "paper", action: "slide", sfx: "paper_slide.wav" },
+     { t: 4.30, material: "sub",   action: "impact", sfx: "sub_impact.wav" }
+   ];
+   ```
+2. **ইভেন্ট এক্সপোর্ট:**
+   রেন্ডার টুল `node core/render/events.mjs` চালিয়ে `build/events.json` ফাইলে প্রতিটি ইভেন্টের এক্স্যাক্ট টাইমস্ট্যাম্প সংরক্ষণ করে।
+3. **০-মিলিসেকেন্ড সিঙ্ক মিক্সিং:**
+   `audio-sound-designer` এই JSON ফাইলটি পড়ে এবং FFmpeg `-filter_complex adelay` দিয়ে প্রতিটি সাউন্ড ইফেক্টকে নির্দিষ্ট ফ্রেমে লক করে দেয়। ফলে অডিও এবং ভিডিওর মধ্যে **০ মিলিসেকেন্ড নিখুঁত সিঙ্ক** বজায় থাকে।
+
+---
+
+## 🤫 The Rule of Intentional Silence & Cinematic J/L Cuts
+
+প্রিমিয়াম সিনেমাটিক সাউন্ড ডিজাইনে নীরবতা (Silence) হলো সবচেয়ে শক্তিশালী অস্ত্র:
+
+### ১. The Rule of Silence (ক্লাইম্যাক্সের আগে নীরবতা)
+- কোনো বড় রিভিল, মূল হুক বা বিগ নাম্বারের ঠিক পূর্বে **০.৩ থেকে ০.৫ সেকেন্ডের জন্য ব্যাকগ্রাউন্ড মিউজিক এবং অ্যাম্বিয়েন্স ডিজিটাল জিরো (-60 dBFS)**-এ ড্রপ করতে হবে।
+- এই ক্ষণস্থায়ী নীরবতা দর্শকের সম্পূর্ণ মনোযোগ আকর্ষণ করে। এর ঠিক পরেই বাজানো `sub_impact.wav` বা ক্রিয়েটরের বলা বাক্যটি দর্শকের মাথায় দ্বিগুণ প্রভাব ফেলে।
+
+### ২. J-Cuts & L-Cuts Audio Transitions
+- **J-Cut (Audio leads video):** দৃশ্য পরিবর্তনের ৪–৬ ফ্রেম আগেই পরবর্তী সিনারিওর অ্যাম্বিয়েন্স বা ম্যাটেরিয়াল সাউন্ড চলে আসবে।
+- **L-Cut (Audio lingers):** দৃশ্য কেটে পরবর্তী দৃশ্যে চলে গেলেও আগের দৃশ্যের সাউন্ড রিং বা রিভার্ব টেইল ২–৪ ফ্রেম পর্যন্ত স্মুথলি ভেসে থাকবে।
+- এই টেকনিক হার্ড অডিও ক্লিপিং বন্ধ করে ভিডিওকে হলিউড-লেভেল ফ্লো প্রদান করে।
 
 ---
 

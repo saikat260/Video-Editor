@@ -99,8 +99,8 @@ PIPELINE INSTRUCTIONS:
      * Asset BG Treatment: Cutout transparent alpha (rembg/canvas) vs keep background vs 3D glass card.
      * Visual Effect & Motion Mechanics: Spring physics (mass/damping), 3D perspective tilt, path-draw stroke-dashoffset, mask-reveal split, camera orbit.
      * Apple-Level 3D Hook: First 3 seconds MUST feature an Apple keynote-level 3D motion graphics hook (Remotion Three.js 3D glass particle hologram or 3D spring tilt) to stop the viewer's scroll instantly.
-     * Anti-Box Rule & Punchy Typography: Motion graphics do NOT have to be trapped inside generic rounded boxes. Use borderless mask reveals (`clip-path`) and floating 3D elements. Typography MUST be large, punchy, easily readable (68-84px), with accent keyword glow in #D97757.
-     * SFX & Audio Sync: Precise sound effects (`whoosh`, `pop`, `click`, `riser`) and ducking.
+     * Anti-Box Rule & Punchy Typography: Motion graphics do NOT have to be trapped inside generic rounded boxes. Use borderless mask reveals (`clip-path`) and floating 3D elements. Typography MUST be large, punchy, easily readable (68-84px, Hold >= (letters / 15 + 1.5)s), with accent keyword glow in #D97757.
+     * Material Foley, Event Sync & Intentional Silence: Precise material sound effects (`glass_tap` on 3D glass/UI, `paper_slide` on archival docs/maps, `sub_impact` on big numbers/punchlines, `tech_click` on code/terminal, `marker_draw` on vector lines), 0.3-0.5s Intentional Silence before hook climax, 0ms event sync via `window.EV` -> `events.json`, and music ducking.
    - ⛔ STOP HERE (GATE #1): Present the complete Creative Blueprint table in chat and STOP. Wait for my approval ("Approve" or revisions) before proceeding to Step 1.
 1. Follow the 10-step pipeline from the ai-video-director SKILL.md.
 2. Check srt/ folder FIRST. If any .srt file matches a clip name, use it directly — do NOT call `npx hyperframes transcribe` for that clip.
@@ -110,7 +110,7 @@ PIPELINE INSTRUCTIONS:
 6. Apply smart zooms: face-tracked, alternating 100% and 120%, max 115% for 1080p source.
 7. Apply captions: word-level timing, active keyword in #D97757, safe zone enforced.
 8. Execute the approved sync map beats — for 3D/maps use Remotion 3D Engine with WebGL Angle backend.
-9. Clean voice audio, duck music to 12%, master to -14 LUFS.
+9. Clean voice audio, apply material foley and 0ms event sync, insert 0.3-0.5s Intentional Silence before hook climax, duck music to 12%, master to -14 LUFS.
 10. Generate preview (540×960) + stills for every sync beat.
 11. ⛔ STOP HERE (GATE #2). Show preview, stills, and 9-point QC report. Wait for final approval.
 12. After approval: render output/final.mp4 at 1080×1920, H.264 ~18 Mbps, AAC 320k.

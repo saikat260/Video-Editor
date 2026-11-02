@@ -302,7 +302,7 @@ PROJECT FILES:
 - srt/ pre-transcribed SRT subtitles (CRITICAL: if present, bypass transcription entirely and preserve Bengali Unicode word timestamps)
 - script.txt the spoken script (semantic narrative reference)
 - assets/music/ background track
-- assets/sfx/ whoosh, pop, click, riser, swoosh (if empty, synthesize soft sine clicks or keep silent)
+- assets/sfx/ whoosh, pop, click, riser, swoosh, and material foley (glass_tap, paper_slide, sub_impact, tech_click, marker_draw) (if empty, auto-synthesize via ffmpeg)
 - assets/fonts/ caption font (if empty, default to Montserrat ExtraBold or Noto Sans Bengali Bold)
 - assets/images/ logos, screenshots, infographics, and custom background (bg.png / bg.jpg)
 - assets/broll/ supporting B-roll video clips or custom animated background footage
@@ -324,8 +324,8 @@ Before cutting footage, generating code, or assembling timeline, you MUST output
 7. Asset BG Treatment: Cutout transparent alpha (rembg/canvas) vs keep background vs 3D glass card.
 8. Visual Effect & Motion Mechanics: Spring physics (mass/damping), 3D perspective tilt, path-draw stroke-dashoffset, mask-reveal split, camera orbit.
 9. Apple-Level 3D Hook: First 3 seconds MUST feature an Apple keynote-level 3D motion graphics hook (Remotion Three.js 3D glass particle hologram or 3D spring tilt) to stop the viewer's scroll instantly.
-10. Anti-Box Rule & Punchy Typography: Motion graphics do NOT have to be trapped inside generic rounded boxes. Use borderless mask reveals (`clip-path`) and floating 3D elements. Typography MUST be large, punchy, easily readable (68-84px), with accent keyword glow in #D97757.
-11. SFX & Audio Sync: Precise sound effects (`whoosh`, `pop`, `click`, `riser`) and ducking.
+10. Anti-Box Rule & Punchy Typography: Motion graphics do NOT have to be trapped inside generic rounded boxes. Use borderless mask reveals (`clip-path`) and floating 3D elements. Typography MUST be large, punchy, easily readable (68-84px, Hold >= (letters / 15 + 1.5)s), with accent keyword glow in #D97757.
+11. Material Foley, Event Sync & Intentional Silence: Precise material sound effects (`glass_tap` on 3D glass/UI, `paper_slide` on archival docs/maps, `sub_impact` on big stats/punchlines, `tech_click` on code/data, `marker_draw` on vector lines), 0.3-0.5s Intentional Silence before hook climax, 0ms event sync via `window.EV` -> `events.json`, and music ducking.
 
 ⛔ STOP HERE (GATE #1): Present the complete Creative Blueprint table in chat and STOP. Wait for my approval ("Approve" or revisions) before proceeding to Step 1.
 
@@ -361,8 +361,10 @@ Execute the approved Creative Blueprint:
 3. Composite scenes sequentially on the master timeline with 2-frame handle accuracy, Roberto Nickson palette (#FFFFFF, #141413, #D97757), and synchronized audio SFX (pop, click, whoosh, riser).
 4. Enforce the 2-4s retention rhythm: never stay visually static for more than 4 seconds, and never stack two visual effects simultaneously.
 
-STEP 7: AUDIO MASTERING
+STEP 7: AUDIO MASTERING & MATERIAL FOLEY
 - Clean voice: 80Hz high-pass filter, gentle noise suppression, smooth compression.
+- Apply material foley palette and event sync from events.json (0ms accuracy).
+- Create 0.3-0.5s Intentional Silence before the primary hook reveal.
 - Duck background music 18–22 dB under voice; restore music cleanly on pauses and ending.
 - Master to -14 LUFS, true peak at -1 dBTP.
 
@@ -382,7 +384,7 @@ STEP 8: PREVIEW & VERIFY
 ```markdown
 Edit a 9:16 short-form video for Instagram and TikTok using HyperFrames, Remotion 3D Engine, and ffmpeg.
 The video is about its own edit: every effect I name in the script must happen on screen the moment I say it.
-STEP 0: Output the Creative Storyboard & Blueprint Table first with Apple-level 3D hook on frame 0, face clearance verified, PiP with custom background, and legible punchy typography. ⛔ STOP AND WAIT FOR APPROVAL.
+STEP 0: Output the Creative Storyboard & Blueprint Table first with Apple-level 3D hook on frame 0, face clearance verified, PiP with custom background, legible punchy typography (Hold >= (letters / 15 + 1.5)s), and Lemo-Opuscar material foley sync + Intentional Silence. ⛔ STOP AND WAIT FOR APPROVAL.
 Sync map:
 - "cuts": hard jump cut + sharp click SFX.
 - "colour grading": drop to ungraded, then thin vertical line sweeps grade back in.

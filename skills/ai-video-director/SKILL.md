@@ -85,17 +85,21 @@ outputs:
 10. **Anti-Box & Punchy Typographic Style:**
     - মোশন গ্রাফিক্স সবসময় যে কোনো চারকোনা বক্সের মধ্যে রাখতে হবে এমন কোনো বাধ্যবাধকতা নেই। বর্ডারলেস মাস্ক রিভিল, ওপেন ভেক্টর, ৩D ফ্লোটিং ইলিমেন্ট ব্যবহার করতে হবে।
     - টেক্সটগুলো হতে হবে মোবাইল স্ক্রিনে সহজে পড়ার মতো বড় সাইজের (৬৮–৮৪px), পাঞ্চি, হাই কনট্রাস্ট এবং অ্যাক্টিভ কি-ওয়ার্ড অরেঞ্জ `#D97757` গ্লো সহ।
-11. **SFX & Sound Sync:** সংশ্লিষ্ট সাউন্ড ইফেক্ট (`whoosh.wav`, `click.wav`, `pop.wav`, `riser.wav`) এবং মিউজিক ডাকিং লেভেল।
+11. **Material Foley, Event Sync & Intentional Silence (Lemo-Opuscar Audio System):**
+    - উপাদান অনুযায়ী বাস্তবসম্মত ম্যাটেরিয়াল সাউন্ড নির্বাচন: ৩D গ্লাসে `glass_tap.wav` (2400Hz), পেপার/ম্যাপে `paper_slide.wav`, বড় নাম্বারে `sub_impact.wav` (65Hz), কোড/ডাটাতে `tech_click.wav`, মার্কার হাইলাইটে `marker_draw.wav`।
+    - **Intentional Silence:** প্রধান হুক বা ক্লাইম্যাক্সের রিভিলের পূর্বে ০.৩–০.৫ সেকেন্ডের ডিজিটাল সাইলেন্স (-60 dBFS) নিশ্চিত করা।
+    - **Readability Timing Verification:** অন-স্ক্রিন প্রতিটি টেক্সট যেন দর্শক পূর্ণাঙ্গ পড়তে পারে সেজন্য ন্যূনতম স্থায়িত্ব `Hold >= (letters / 15 + 1.5)s` বা বাংলায় `Hold >= (characters / 4.5 + 1.5)s` অ্যালগরিদম মেনে চলা।
+    - **ইভেন্ট সিঙ্ক:** HTML5/Remotion থেকে `window.EV` অ্যারে হয়ে `build/events.json` টাইমস্ট্যাম্পে ০-মিলিসেকেন্ড সিঙ্ক।
 
 #### ক্রিয়েটিভ বোর্ড মাস্টার টেবিল ফরম্যাট:
 
 ```markdown
 ### 📋 THE CREATIVE STORYBOARD & EXECUTION BLUEPRINT
 
-| Scene ID & Time | Spoken Line | A-Roll Layout | Custom BG (PiP) | Face Protected? | Target Skill & Asset Sourcing | Image BG Treatment | Visual Effect & Motion Spec | Typography Style | SFX & Audio |
+| Scene ID & Time | Spoken Line | A-Roll Layout | Custom BG (PiP) | Face Protected? | Target Skill & Asset Sourcing | Image BG Treatment | Visual Effect & Motion Spec | Typography Style (Readability Formula) | Material Foley & Audio Spec |
 |---|---|---|---|---|---|---|---|---|---|
-| **Scene 01** (00:00 - 00:03.2) | "এই একটা ট্রিক আপনার পুরো ভিডিও প্রোডাকশন বদলে দেবে" | PiP Floating Pill (Bottom-Right, 45% scale) | YES (`assets/images/bg.png` + vignette) | ✅ 100% CLEAR (A-Roll in corner; Graphic in top-center safe zone) | `skills/remotion-motion-engine` + Three.js + WebGL | Transparent Cutout + 3D Specular Lighting | **Apple-Level 3D Hook:** 3D glowing particle hologram opens with spring physics (damping: 14), camera orbits 15° to freeze scroll | 84px Bold Borderless Mask-Reveal ("THE GAME CHANGER"), Orange #D97757 Glow (NO BOX) | Sub-bass riser + whoosh on frame 0 |
-| **Scene 02** (00:03.2 - 00:06.5) | "গত এক বছরে আমাদের কনভার্সন রেট ১২% থেকে ৪৭% হয়েছে" | Full-Screen A-Roll (Face-Tracked Close 120%) | N/A | ✅ 100% CLEAR (Lower 30% safe zone, 200px below chin) | `skills/chart-animation` | SVG Vector Chart | Live counting ticker with green axis glow and particle trail | 72px Bold Numbers with live ticker counter | Pop SFX on numbers hit |
+| **Scene 01** (00:00 - 00:03.2) | "এই একটা ট্রিক আপনার পুরো ভিডিও প্রোডাকশন বদলে দেবে" | PiP Floating Pill (Bottom-Right, 45% scale) | YES (`assets/images/bg.png` + vignette) | ✅ 100% CLEAR (A-Roll in corner; Graphic in top-center safe zone) | `skills/remotion-motion-engine` + Three.js + WebGL | Transparent Cutout + 3D Specular Lighting | **Apple-Level 3D Hook:** 3D glowing particle hologram opens with spring physics (damping: 14), camera orbits 15° to freeze scroll | 84px Bold Borderless Mask-Reveal ("THE GAME CHANGER"), Orange #D97757 Glow (NO BOX) [Hold: 2.1s] | **0.4s Intentional Silence** -> `sub_impact.wav` + `glass_tap.wav` on frame 0 |
+| **Scene 02** (00:03.2 - 00:06.5) | "গত এক বছরে আমাদের কনভার্সন রেট ১২% থেকে ৪৭% হয়েছে" | Full-Screen A-Roll (Face-Tracked Close 120%) | N/A | ✅ 100% CLEAR (Lower 30% safe zone, 200px below chin) | `skills/chart-animation` | SVG Vector Chart | Live counting ticker with green axis glow and particle trail | 72px Bold Numbers with live ticker counter [Hold: 2.5s] | `tech_click.wav` on count pulse + `sub_impact.wav` on 47% lock |
 ```
 
 > ⛔ **APPROVAL GATE #1 STOP RULE:**
@@ -448,10 +452,15 @@ flowchart TD
 #### ধাপ ৫: ক্রমানুসারে মাস্টার টাইমলাইন ব্লেন্ডিং ও অডিও সিঙ্ক (Sequential Assembly & Audio Sync)
 - প্রতিটি সিনের জেনারেটেড অ্যাসেটকে তার টাইমস্ট্যাম্প অনুযায়ী ffmpeg `filter_complex` অথবা HyperFrames লেয়ার দিয়ে মাস্টার ভিডিওতে কম্পোজিট করা হয়।
 - **২-ফ্রেম হ্যান্ডেল রুল:** অডিও ওয়েভফর্মের সাথে মিলিয়ে শব্দের ঠিক ২ ফ্রেম আগে (`-0.066s`) ভিজ্যুয়াল দৃশ্যমান হবে।
-- **অটোমেটিক সাউন্ড ডিজাইন:**
-  - চার্ট রিভিলে: `assets/sfx/pop.wav` (-14 dBFS)
+- **Lemo-Opuscar ম্যাটেরিয়াল সাউন্ড ডিজাইন ও ইভেন্ট সিঙ্ক:**
+  - ৩D গ্লাস কার্ড / হলোগ্রাম রিভিলে: `assets/sfx/glass_tap.wav` (-14 dBFS, 2400Hz crystalline tap)
+  - জনি হ্যারিস পেপার, ম্যাপ ও ডকুমেন্টে: `assets/sfx/paper_slide.wav` (-12 dBFS, crisp texture friction)
+  - বড় সংখ্যা ও কি-মেট্রিক লকে: `assets/sfx/sub_impact.wav` (-10 dBFS, 65Hz cinematic sub-drop)
+  - কোড ও টার্মিনাল টাইপিংয়ে: `assets/sfx/tech_click.wav` (-15 dBFS, mechanical switch)
+  - মার্কার হাইলাইট ও ভেক্টর অ্যারোতে: `assets/sfx/marker_draw.wav` (-14 dBFS, textured drawing)
   - ক্যামেরা পুশ জুমে: `assets/sfx/whoosh.wav` (-12 dBFS)
-  - ইমপ্যাক্ট বা জাম্প কাটে: `assets/sfx/click.wav` (-15 dBFS)
+  - জাম্প কাটে: `assets/sfx/click.wav` (-16 dBFS)
+  - **Intentional Silence:** প্রধান হুক বা রিভিলের ঠিক আগে ০.৩–০.৫ সেকেন্ডের ডিজিটাল সাইলেন্স (-60 dBFS)
   - ব্যাকগ্রাউন্ড মিউজিক ডাকিং: কথা চলাকালীন -২০ dBFS, বিরতিতে -১২ dBFS।
 - **স্টিল প্রিভিউ তৈরি:** প্রতিটি সিনের মিডপয়েন্টের একটি স্টিল ইমেজ `output/stills/scene_NN.jpg`-এ সংরক্ষণ করা হয়।
 
