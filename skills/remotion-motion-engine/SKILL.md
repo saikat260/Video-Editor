@@ -414,3 +414,89 @@ npx remotion render src/index.ts MainComposition output/scene_3d.mp4 --gl=angle 
 2. **নো স্ট্যাটিক লাইন:** ম্যাপের রুট অবশ্যই ফ্রেম ধরে অ্যানিমেট হয়ে ড্র হবে।
 3. **ক্যামেরা মোশন:** প্রতিটি ৩D সিনে ক্যামেরা অন্তত ১০-১৫% ট্রাভেল বা অরবিট করবে।
 4. **অডিও-সিঙ্ক:** ৩D কার্ডের ফ্লিপ বা জুমের সাথে ২ ফ্রেমের মধ্যে সাউন্ড ইফেক্ট (`whoosh`, `sub-bass hit`) সিঙ্ক হবে।
+
+
+---
+
+## ৭. Lemo-Opuscar ফ্ল্যাগশিপ সিনেমাটিক স্টাইল মডিউলস (Cinema Styles)
+
+Lemo-Opuscar-এর সেরা ৩টি কোড-ড্রাইভেন সিনেমাটিক স্টাইল সরাসরি রিমোশন ও ক্যানভাস পাইপলাইনে যুক্ত করা হয়েছে:
+
+### স্টাইল ১: Dark Tech Keynote (`dark-keynote`)
+সফটওয়্যার, AI টুল ও প্রিমিয়াম প্রোডাক্ট লঞ্চের জন্য অ্যাপল ও স্ট্রাইপ স্টাইলের ডার্ক স্টেজ:
+- **ভিজ্যুয়াল আর্কিটেকচার:**
+  - ডার্ক স্টেজ (`#0A0A0C`) সহ ওপরের সেন্টারে মৃদু রেডিয়াল লাইট।
+  - ৪৮px মডিউল বিশিষ্ট হেয়ারলাইন গ্রিড (হোয়াইট ৩% অপাসিটি, প্রতি ৪র্থ লাইনে ৬%)।
+  - একটি একক ব্র্যান্ড অ্যাকসেন্ট (যেমন: সিগন্যাল অরেঞ্জ `#D97757` বা লাইম `#B7F34A`)।
+  - ইন্টার টাইট (`Inter Tight 600`, tracking -4.5%) ফন্টে সুবিশাল সংখ্যা (Giant Number)।
+  - স্ন্যাপ-গ্রিড মোশন: এলিমেন্টগুলো বিটের এক ফ্রেম আগে উড়ে এসে গ্রিডে স্ন্যাপ করবে।
+
+```tsx
+export const DarkKeynoteScene: React.FC<{ title: string; bigNumber: string; label: string }> = ({
+  title,
+  bigNumber,
+  label,
+}) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+
+  // Specular light sweep across stage
+  const sweepX = interpolate(frame, [0, 40], [-500, 1500], { extrapolateRight: 'clamp' });
+  const numberScale = spring({ frame: frame - 10, fps, config: { damping: 12, mass: 0.8 } });
+
+  return (
+    <div style={{ width: '100%', height: '100%', backgroundColor: '#090A0F', position: 'relative', overflow: 'hidden' }}>
+      {/* 48px Hairline Precision Grid */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+        }}
+      />
+      {/* Soft Specular Light Sweep */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: sweepX,
+          width: 300,
+          height: '100%',
+          background: 'radial-gradient(ellipse at center, rgba(217, 119, 87, 0.15) 0%, transparent 70%)',
+          transform: 'skewX(-20deg)',
+          pointerEvents: 'none',
+        }}
+      />
+      {/* Giant Keynote Number */}
+      <div style={{ position: 'absolute', top: '35%', width: '100%', textAlign: 'center', transform: `scale(${numberScale})` }}>
+        <h1 style={{ fontFamily: 'Inter Tight, sans-serif', fontSize: 130, fontWeight: 700, color: '#FFFFFF', margin: 0, letterSpacing: '-6px' }}>
+          <span style={{ color: '#D97757' }}>{bigNumber}</span>
+        </h1>
+        <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 24, color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '4px', marginTop: 12 }}>
+          {label}
+        </p>
+      </div>
+    </div>
+  );
+};
+```
+
+---
+
+### স্টাইল ২: Visual Investigation & Satellite Briefing (`visual-investigation`)
+জনি হ্যারিস, ভক্স ও নিউ ইয়র্ক টাইমস ভিজ্যুয়াল ইনভেস্টিগেশনস স্টাইল:
+- **ভিজ্যুয়াল আর্কিটেকচার:**
+  - সিঙ্ক্রোনাইজড মিলি-সেকেন্ড ইনভেস্টিগেশন ক্লক (`00:04:32:12`) স্ক্রিনের শীর্ষে চলতে থাকবে।
+  - স্প্লিট এভিডেন্স কম্পোজিশন: একদিকে হাই-রেজোলিউশন স্যাটেলাইট ইমেজারি, অন্যদিকে আর্কাইভাল মেমো বা লাইট-টেবিল ডকুমেন্ট।
+  - হ্যান্ড-ড্রন মার্কার হাইলাইটার (`marker_draw.wav`) ও ক্লাসিফাইড রেড স্ট্যাম্প রিভিল।
+
+---
+
+### স্টাইল ৩: Swiss Kinetic Poster Motion (`swiss-motion`)
+আন্তর্জাতিক টাইপোগ্রাফিক শৈলী (Swiss Style):
+- **ভিজ্যুয়াল আর্কিটেকচার:**
+  - অ্যাসিমেট্রিক্যাল ৯-কলাম গ্রিড।
+  - ফন্ট: Akzidenz-Grotesk বা Helvetica Bold।
+  - বিটের সাথে সাথে সম্পূর্ণ স্ক্রিনের ফ্রেম স্প্লিট ও টাইপোগ্রাফিক ফ্লিপ।
+  - কোনো গ্রেডিয়েন্ট বা ড্রপ শ্যাডো নেই—পিওর সলিড কনট্রাস্ট (#141413 এবং #FFFFFF) ও একটি সিগন্যাল অ্যাকসেন্ট (#D97757)।
